@@ -4,7 +4,8 @@
         "name": "Cosa1",
         "price": "100",
         "description": "Descripcion de la cosa 1",
-        "image": "https://via.placeholder.com/300"
+        "image": "https://via.placeholder.com/300",
+        "selected": 0
 
     },
     {
@@ -12,15 +13,16 @@
         "name": "Cosa2",
         "price": "200",
         "description": "Descripcion de la cosa 2",
-        "image": "https://via.placeholder.com/300"
-
+        "image": "https://via.placeholder.com/300",
+        "selected": 0
     },
     {
         "id": 2,
         "name": "Cosa3",
         "price": "300",
         "description": "Descripcion de la cosa 3",
-        "image": "https://via.placeholder.com/300"
+        "image": "https://via.placeholder.com/300",
+        "selected": 0
 
     },
     {
@@ -28,7 +30,8 @@
         "name": "Cosa4",
         "price": "400",
         "description": "Descripcion de la cosa 4",
-        "image": "https://via.placeholder.com/300"
+        "image": "https://via.placeholder.com/300",
+        "selected": 0
 
     },
     {
@@ -36,7 +39,8 @@
         "name": "Cosa5",
         "price": "500",
         "description": "Descripcion de la cosa 5",
-        "image": "https://via.placeholder.com/300"
+        "image": "https://via.placeholder.com/300",
+        "selected": 0
 
     },
     {
@@ -44,7 +48,8 @@
         "name": "Cosa6",
         "price": "600",
         "description": "Descripcion de la cosa 6",
-        "image": "https://via.placeholder.com/300"
+        "image": "https://via.placeholder.com/300",
+        "selected": 0
 
     },
     {
@@ -52,7 +57,8 @@
         "name": "Cosa7",
         "price": "700",
         "description": "Descripcion de la cosa 7",
-        "image": "https://via.placeholder.com/300"
+        "image": "https://via.placeholder.com/300",
+        "selected": 0
 
     },
     {
@@ -60,7 +66,8 @@
         "name": "Cosa8",
         "price": "800",
         "description": "Descripcion de la cosa 8",
-        "image": "https://via.placeholder.com/300"
+        "image": "https://via.placeholder.com/300",
+        "selected": 0
 
     }
 ]

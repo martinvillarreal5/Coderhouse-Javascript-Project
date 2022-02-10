@@ -1,12 +1,11 @@
 const products = [];
-// $(function() ( w/o a space ) is a short for $(document).ready(function(). 
-  $.getJSON("json/products.json", function(data) {
-    data.forEach(function(item) {
-      products.push(item);
-    });
+$.getJSON("json/products.json", function (data) {
+  data.forEach(function (item) {
+    products.push(item);
   });
+});
 console.log(products);
-localStorage.setItem("cart", JSON.stringify(null))
+localStorage.setItem("cart", JSON.stringify(null));
 
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
 console.log(cart);
@@ -14,9 +13,11 @@ if (cart.length > 0) {
   loadLocalCart();
 }
 
-
 function createStoreItems() {
+  console.log("Creando items")
+  console.log(products)
   products.forEach((product) => {
+    console.log("dentro de for each, producto: ", product)
     let item =
       $(`<div class="store__item card text-center" style="width: 18rem; margin: clamp(5px, 1%, 10px); ">
     <img class="card-img-top" src=${product.image} alt="Card image cap">
