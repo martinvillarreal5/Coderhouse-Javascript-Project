@@ -17,7 +17,7 @@
         "selected": 0
     },
     {
-        "id": 2,
+        "id": 3,
         "name": "Cosa3",
         "price": "300",
         "description": "Descripcion de la cosa 3",
@@ -26,7 +26,7 @@
 
     },
     {
-        "id": 2,
+        "id": 4,
         "name": "Cosa4",
         "price": "400",
         "description": "Descripcion de la cosa 4",
@@ -35,7 +35,7 @@
 
     },
     {
-        "id": 2,
+        "id": 5,
         "name": "Cosa5",
         "price": "500",
         "description": "Descripcion de la cosa 5",
@@ -44,7 +44,7 @@
 
     },
     {
-        "id": 2,
+        "id": 6,
         "name": "Cosa6",
         "price": "600",
         "description": "Descripcion de la cosa 6",
@@ -53,7 +53,7 @@
 
     },
     {
-        "id": 2,
+        "id": 7,
         "name": "Cosa7",
         "price": "700",
         "description": "Descripcion de la cosa 7",
@@ -62,7 +62,7 @@
 
     },
     {
-        "id": 2,
+        "id": 8,
         "name": "Cosa8",
         "price": "800",
         "description": "Descripcion de la cosa 8",

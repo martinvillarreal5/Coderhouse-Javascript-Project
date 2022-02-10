@@ -1,34 +1,25 @@
-const products = [];
-$.getJSON("json/products.json", function (data) {
-  data.forEach(function (item) {
-    products.push(item);
-  });
-});
-console.log(products);
-localStorage.setItem("cart", JSON.stringify(null));
 
-const cart = JSON.parse(localStorage.getItem("cart")) || [];
-console.log(cart);
-if (cart.length > 0) {
-  loadLocalCart();
-}
 
 function createStoreItems() {
-  console.log("Creando items")
-  console.log(products)
-  products.forEach((product) => {
-    console.log("dentro de for each, producto: ", product)
-    let item =
-      $(`<div class="store__item card text-center" style="width: 18rem; margin: clamp(5px, 1%, 10px); ">
-    <img class="card-img-top" src=${product.image} alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">${product.name}</h5>
-      <h5 class="card-title">${product.price}$</h5>
-      <button id="store__add-btn-${product.id}" class="store__add-btn btn btn-primary">Agregar al carrito</button>
-    </div>
-    </div>`);
-    $("#store__container").append(item);
-  });
+  console.log(products);
+  try{
+    products.forEach(function(product){
+      console.log(product);
+      let item =
+        $(`<div class="store__item card text-center" style="width: 18rem; margin: clamp(5px, 1%, 10px); ">
+      <img class="card-img-top" src=${product.image} alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">${product.name}</h5>
+        <h5 class="card-title">${product.price}$</h5>
+        <button id="store__add-btn-${product.id}" class="store__add-btn btn btn-primary">Agregar al carrito</button>
+      </div>
+      </div>`);
+      $("#store__container").append(item);
+    });
+  }catch(error){
+    console.error(error);
+  }
+  
 }
 function addEventListenerToAddButton() {
   $(".store__add-btn").click(function () {
@@ -117,6 +108,7 @@ function removeProductFromCart(product) {
 }
 function updateTotalPriceText() {
   let totalPrice = 0;
+  //usar un reduce abajo
   cart.forEach((product) => {
     totalPrice += product.price * product.selected;
   });
@@ -148,25 +140,20 @@ function loadLocalCart() {
   createBuyButton();
   addEventListenerToBuyButton();
 }
-/*
-class Product {
-  constructor(id, name, price) {
-    this.id = id;
-    this.name = name;
-    this.price = price;
-    this.selected = 0;
-    this.image = "https://via.placeholder.com/300";
-  }
-}
-const products = []; //array que contendrà cada obj producto
-products.push(new Product(1, "Cosa1", 100));
-products.push(new Product(2, "Cosa2", 100));
-products.push(new Product(3, "Cosa3", 100));
-products.push(new Product(4, "Cosa4", 100));
-products.push(new Product(5, "Cosa5", 100));
-products.push(new Product(6, "Cosa6", 100));
+const products = [];
+$.getJSON("json/products.json", function (data) {
+  data.forEach(function (item) {
+    products.push(item);
+  });
+});
 console.log(products);
-*/
+localStorage.setItem("cart", JSON.stringify(null));
+
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+console.log(cart);
+if (cart.length > 0) {
+  loadLocalCart();
+}
 
 createStoreItems();
 addEventListenerToAddButton();
