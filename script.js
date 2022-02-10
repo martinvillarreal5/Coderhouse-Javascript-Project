@@ -1,12 +1,9 @@
-
-
 function createStoreItems() {
   console.log(products);
-  try{
-    products.forEach(function(product){
-      console.log(product);
-      let item =
-        $(`<div class="store__item card text-center" style="width: 18rem; margin: clamp(5px, 1%, 10px); ">
+  products.forEach(function (product) {
+    console.log(product);
+    let item =
+      $(`<div class="store__item card text-center" style="width: 18rem; margin: clamp(5px, 1%, 10px); ">
       <img class="card-img-top" src=${product.image} alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">${product.name}</h5>
@@ -14,12 +11,8 @@ function createStoreItems() {
         <button id="store__add-btn-${product.id}" class="store__add-btn btn btn-primary">Agregar al carrito</button>
       </div>
       </div>`);
-      $("#store__container").append(item);
-    });
-  }catch(error){
-    console.error(error);
-  }
-  
+    $("#store__container").append(item);
+  });
 }
 function addEventListenerToAddButton() {
   $(".store__add-btn").click(function () {
@@ -140,6 +133,8 @@ function loadLocalCart() {
   createBuyButton();
   addEventListenerToBuyButton();
 }
+
+
 const products = [];
 $.getJSON("json/products.json", function (data) {
   data.forEach(function (item) {
