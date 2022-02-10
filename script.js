@@ -130,6 +130,7 @@ function loadLocalCart() {
   createBuyButton();
   addEventListenerToBuyButton();
 }
+/*
 class Product {
   constructor(id, name, price) {
     this.id = id;
@@ -147,6 +148,24 @@ products.push(new Product(4, "Cosa4", 100));
 products.push(new Product(5, "Cosa5", 100));
 products.push(new Product(6, "Cosa6", 100));
 console.log(products);
+*/
+const products = [];
+$(document).ready(function(){
+  $.ajax({
+    url: "json/products.json",
+    dataType: "json",
+    success: function(data) {
+      data.forEach((product) => {
+        products.push(product);
+      });
+    },
+  });
+
+})
+
+
+console.log(products);
+
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
 console.log(cart);
 if (cart.length > 0) {
