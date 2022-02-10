@@ -1,6 +1,23 @@
+const products = [];
+// $(function() ( w/o a space ) is a short for $(document).ready(function(). 
+  $.getJSON("json/products.json", function(data) {
+    data.forEach(function(item) {
+      products.push(item);
+    });
+  });
+console.log(products);
+localStorage.setItem("cart", JSON.stringify(null))
+
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+console.log(cart);
+if (cart.length > 0) {
+  loadLocalCart();
+}
+
+
 function createStoreItems() {
   products.forEach((product) => {
-    const item =
+    let item =
       $(`<div class="store__item card text-center" style="width: 18rem; margin: clamp(5px, 1%, 10px); ">
     <img class="card-img-top" src=${product.image} alt="Card image cap">
     <div class="card-body">
@@ -149,27 +166,6 @@ products.push(new Product(5, "Cosa5", 100));
 products.push(new Product(6, "Cosa6", 100));
 console.log(products);
 */
-const products = [];
-$(document).ready(function(){
-  $.ajax({
-    url: "json/products.json",
-    dataType: "json",
-    success: function(data) {
-      data.forEach((product) => {
-        products.push(product);
-      });
-    },
-  });
 
-})
-
-
-console.log(products);
-
-const cart = JSON.parse(localStorage.getItem("cart")) || [];
-console.log(cart);
-if (cart.length > 0) {
-  loadLocalCart();
-}
 createStoreItems();
 addEventListenerToAddButton();
