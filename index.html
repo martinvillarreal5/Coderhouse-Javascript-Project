@@ -20,11 +20,11 @@
 </head>
 
 <body id="grid_areas">
-    <nav class="navbar navbar-expand-lg navbar-light pr-lg-5">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light pr-lg-5">
         <div class="container-fluid">
             <a class="logo navbar-brand" href="#">Mi Tienda</a>
             <div class="ms-auto">
-                <i class="bi bi-cart moving-cart"></i>
+                <button class="moving-cart" id="nav__cart-btn" type="button"><i class="bi bi-cart "></i></button>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -48,7 +48,7 @@
     </article>
 
     <article id="cart">
-        <h2>Carrito</h2>
+        <h2>Carro de Compras</h2>
         <div id="cart__container">
         </div>
         <h3 id="cart__total-txt"></h3>

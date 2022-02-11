@@ -143,6 +143,13 @@ class Product {
     this.selected = 0;
   }
 }
+
+function addEventListenerToNavCartButton(){
+  $("#nav__cart-btn").click(function(){
+    $("#cart").slideToggle("550");
+  });
+}
+addEventListenerToNavCartButton();
 const products = [];
 $(document).ready(function () {
   $.getJSON("json/products.json", function (data) {
