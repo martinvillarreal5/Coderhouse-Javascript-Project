@@ -146,13 +146,16 @@ class Product {
   }
 }
 const products = [];
-$.getJSON("json/products.json", function (data) {
-  data.forEach(function (item) {
-    products.push(
-      new Product(item.id, item.name, item.price, item.image, item.description)
-    );
+$(document).ready(function () {
+  $.getJSON("json/products.json", function (data) {
+    data.forEach(function (item) {
+      products.push(
+        new Product(item.id, item.name, item.price, item.image, item.description)
+      );
+    });
   });
 });
+
 
 console.log(products);
 localStorage.setItem("cart", JSON.stringify(null)); //storage desactivado temporalmente
