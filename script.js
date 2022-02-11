@@ -1,7 +1,5 @@
 function createStoreItems() {
-  console.log(products);
   products.forEach(function (product) {
-    console.log(product);
     let item =
       $(`<div class="store__item card text-center" style="width: 18rem; margin: clamp(5px, 1%, 10px); ">
       <img class="card-img-top" src=${product.image} alt="Card image cap">
@@ -148,16 +146,16 @@ class Product {
 const products = [];
 $(document).ready(function () {
   $.getJSON("json/products.json", function (data) {
-    data.forEach(function (item) {
+     data.forEach(function (item) {
       products.push(
         new Product(item.id, item.name, item.price, item.image, item.description)
       );
     });
+    createStoreItems();
   });
 });
 
 
-console.log(products);
 localStorage.setItem("cart", JSON.stringify(null)); //storage desactivado temporalmente
 
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -165,4 +163,4 @@ if (cart.length > 0) {
   loadLocalCart();
 }
 
-createStoreItems();
+
