@@ -13,8 +13,9 @@ function createStoreItems() {
       </div>`);
     $("#store__container").append(item);
   });
+  addEventListenerToAddButtons();
 }
-function addEventListenerToAddButton() {
+function addEventListenerToAddButtons() {
   $(".store__add-btn").click(function () {
     let id = $(this).attr("id").split("-")[2];
     if (cart.find((item) => item.id == id)) {
@@ -90,7 +91,7 @@ function decreaseProduct(id) {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 function removeProductFromCart(product) {
-  const index = cart.indexOf(product); //busca el index del prodcuto
+  const index = cart.indexOf(product); //devuelve el indice del producto
   if (index > -1) {
     cart.splice(index, 1); // remueve el index del array.el 1er parametro indica el indice, el 2do indica cantidad a borrar desde el indice
   }
@@ -134,21 +135,31 @@ function loadLocalCart() {
   addEventListenerToBuyButton();
 }
 
-
+class Product {
+  constructor(id, name, price, image, description) {
+    this.id = id;
+    this.name = name;
+    this.price = price;
+    this.image = image;
+    this.description = description;
+    this.selected = 0;
+  }
+}
 const products = [];
 $.getJSON("json/products.json", function (data) {
   data.forEach(function (item) {
-    products.push(item);
+    products.push(
+      new Product(item.id, item.name, item.price, item.image, item.description)
+    );
   });
 });
+
 console.log(products);
-localStorage.setItem("cart", JSON.stringify(null));
+localStorage.setItem("cart", JSON.stringify(null)); //storage desactivado temporalmente
 
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
-console.log(cart);
 if (cart.length > 0) {
   loadLocalCart();
 }
 
 createStoreItems();
-addEventListenerToAddButton();
