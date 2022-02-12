@@ -45,7 +45,9 @@ function addProductToCart(id) {
   if (cart.length == 1) {
     createBuyButton();
     addEventListenerToBuyButton();
+    createNavCartBadge();
   }
+  updateNavCartCounter();
   updateTotalPriceText();
 }
 function createCartItem(product) {
@@ -94,8 +96,10 @@ function removeProductFromCart(product) {
     cart.splice(index, 1); // remueve el index del array.el 1er parametro indica el indice, el 2do indica cantidad a borrar desde el indice
   }
   if (cart.length == 0) {
-    $(".cart__buy-btn").remove();
+    $("#cart__buy-btn").remove();
+    $("#nav__cart-badge").remove();
   }
+  updateNavCartCounter();
   $(`#cart__item-${product.id}`).remove();
 }
 function updateTotalPriceText() {
@@ -112,10 +116,23 @@ function updateTotalPriceText() {
 }
 function createBuyButton() {
   let buyBtn = $(
-    `<button type="button" class="cart__buy-btn btn btn-success">Comprar</button>`
+    `<button type="button" id="cart__buy-btn" class=" btn btn-success">Comprar</button>`
   );
   $("#cart").append(buyBtn);
+  
 }
+function createNavCartBadge(){
+  let badgeCounter = `<span class="badge rounded-pill position-absolute translate-middle bg-danger" id="nav__cart-badge">
+                        <span class="visually-hidden">Cantidad de productos en el carro:</span> 
+                        <!-- the above is for users of screen readers and similar assistive technologies-->
+                        <div id="nav__cart-counter">0</div>
+                      </span>`;
+  $("#nav__cart-btn").append(badgeCounter);
+}
+function updateNavCartCounter(){
+  $("#nav__cart-counter").text(cart.length);
+}
+
 function addEventListenerToBuyButton() {
   $(".cart__buy-btn").click(function () {
     alert("Compra realizada con exito");
