@@ -1,5 +1,3 @@
-
-
 function renderStoreItems() {
   products.forEach(function (product) {
     let item =
@@ -54,7 +52,6 @@ function renderBuyButton() {
 }
 
 function addProductToCart(id) {
-  console.log(products);
   let product = products.find((item) => item.id == id);
   cart.push(product);
   increaseProduct(id);
@@ -83,7 +80,7 @@ function decreaseProduct(id) {
     removeProductFromCart(product);
   } else {
     updateItemQuantity(product.id, product.selected);
-    updateItemTotalPrice(product.id, product.selected*product.price);
+    updateItemTotalPrice(product.id, product.selected * product.price);
     updateLocalStorage("cart", cart);
     updateTotalPriceText();
   }
@@ -91,6 +88,9 @@ function decreaseProduct(id) {
 
 function removeProductFromCart(product) {
   const index = cart.indexOf(product); //devuelve el indice del producto
+  if (product.selected > 0) {
+    product.selected = 0; // ya que el producto comparte direccion de memoria con en ambos arrays. si llamo a esta funcion sin antes llamar decrease product, el producto no se actualiza y cuando agrego nuevamente el producto al carro conserva la cantidad que tenia al momento de llamar esta funcion en vez de 0 como deberia ser
+  }
   if (index > -1) {
     cart.splice(index, 1); // remueve el index del array.el 1er parametro indica el indice, el 2do indica cantidad a borrar desde el indice
   }
@@ -165,11 +165,11 @@ function addEventListenerToQuantityInput(id) {
     } else if (quantity < 0) {
       // add popover saying wrong value or block input for only 0/1-99 numbers
       updateItemQuantity(product.id, product.selected);
-      updateItemTotalPrice(product.id, product.selected*product.price);
+      updateItemTotalPrice(product.id, product.selected * product.price);
     } else {
       product.selected = quantity;
       updateItemQuantity(product.id, product.selected);
-      updateItemTotalPrice(product.id, product.selected*product.price);
+      updateItemTotalPrice(product.id, product.selected * product.price);
       updateLocalStorage("cart", cart);
       updateTotalPriceText();
     }
@@ -199,13 +199,19 @@ function addEventListenerToNavCartButton() {
 
 function toggleShowNavCartBadge() {
   if ($("#nav__cart-badge").css("opacity") == 1) {
-    $("#nav__cart-badge").animate({
-      opacity: 0
-    }, 500);
+    $("#nav__cart-badge").animate(
+      {
+        opacity: 0,
+      },
+      500
+    );
   } else {
-    $("#nav__cart-badge").animate({
-      opacity: 1
-    }, 500);
+    $("#nav__cart-badge").animate(
+      {
+        opacity: 1,
+      },
+      500
+    );
   }
 }
 
@@ -245,7 +251,7 @@ if (cart.length > 0) {
 addEventListenerToNavCartButton();
 
 const products = [];
-let testarray = []
+let testarray = [];
 $(document).ready(function () {
   $.getJSON("json/products.json", function (data) {
     data.forEach(function (item) {
