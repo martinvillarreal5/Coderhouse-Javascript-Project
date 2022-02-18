@@ -4,7 +4,8 @@
         "name": "Cosa1",
         "price": "100",
         "description": "Descripcion de la cosa 1",
-        "image": "https://via.placeholder.com/300"
+        "image": "https://via.placeholder.com/300",
+        "category": "Categoria 1"
 
     },
     {
@@ -12,14 +13,16 @@
         "name": "Cosa2",
         "price": "200",
         "description": "Descripcion de la cosa 2",
-        "image": "https://via.placeholder.com/300"
+        "image": "https://via.placeholder.com/300",
+        "category": "Categoria 1"
     },
     {
         "id": 3,
         "name": "Cosa3",
         "price": "300",
         "description": "Descripcion de la cosa 3",
-        "image": "https://via.placeholder.com/300"
+        "image": "https://via.placeholder.com/300",
+        "category": "Categoria 1"
 
     },
     {
@@ -27,23 +30,24 @@
         "name": "Cosa4",
         "price": "400",
         "description": "Descripcion de la cosa 4",
-        "image": "https://via.placeholder.com/300"
-
+        "image": "https://via.placeholder.com/300",
+        "category": "Categoria 1"
     },
     {
         "id": 5,
         "name": "Cosa5",
         "price": "500",
         "description": "Descripcion de la cosa 5",
-        "image": "https://via.placeholder.com/300"
-
+        "image": "https://via.placeholder.com/300",
+        "category": "Categoria 1"
     },
     {
         "id": 6,
         "name": "Cosa6",
         "price": "600",
         "description": "Descripcion de la cosa 6",
-        "image": "https://via.placeholder.com/300"
+        "image": "https://via.placeholder.com/300",
+        "category": "Categoria 1"
 
     },
     {
@@ -51,7 +55,8 @@
         "name": "Cosa7",
         "price": "700",
         "description": "Descripcion de la cosa 7",
-        "image": "https://via.placeholder.com/300"
+        "image": "https://via.placeholder.com/300",
+        "category": "Categoria 1"
 
     },
     {
@@ -59,7 +64,74 @@
         "name": "Cosa8",
         "price": "800",
         "description": "Descripcion de la cosa 8",
-        "image": "https://via.placeholder.com/300"
+        "image": "https://via.placeholder.com/300",
+        "category": "Categoria 1"
+    },
+    {
+        "id": 9,
+        "name": "Cosa9",
+        "price": "800",
+        "description": "Descripcion de la cosa 9",
+        "image": "https://via.placeholder.com/300",
+        "category": "Categoria 2"
+    },
+    {
+        "id": 10,
+        "name": "Cosa10",
+        "price": "800",
+        "description": "Descripcion de la cosa 10",
+        "image": "https://via.placeholder.com/300",
+        "category": "Categoria 2"
+    },
+    {
+        "id": 11,
+        "name": "Cosa11",
+        "price": "800",
+        "description": "Descripcion de la cosa 11",
+        "image": "https://via.placeholder.com/300",
+        "category": "Categoria 2"
 
+    },
+    {
+        "id": 12,
+        "name": "Cosa12",
+        "price": "800",
+        "description": "Descripcion de la cosa 12",
+        "image": "https://via.placeholder.com/300",
+        "category": "Categoria 2"
+    },
+    {
+        "id": 13,
+        "name": "Cosa13",
+        "price": "800",
+        "description": "Descripcion de la cosa 13",
+        "image": "https://via.placeholder.com/300",
+        "category": "Categoria 2"
+    },
+    {
+        "id": 14,
+        "name": "Cosa14",
+        "price": "800",
+        "description": "Descripcion de la cosa 14",
+        "image": "https://via.placeholder.com/300",
+        "category": "Categoria 2"
+
+    },
+    {
+        "id": 15,
+        "name": "Cosa15",
+        "price": "800",
+        "description": "Descripcion de la cosa 15",
+        "image": "https://via.placeholder.com/300",
+        "category": "Categoria 2"
+    },
+    {
+        "id": 16,
+        "name": "Cosa16",
+        "price": "800",
+        "description": "Descripcion de la cosa 16",
+        "image": "https://via.placeholder.com/300",
+        "category": "Categoria 2"
     }
+
 ]

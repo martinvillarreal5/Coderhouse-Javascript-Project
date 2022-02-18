@@ -1,0 +1,29 @@
+{
+  "name": "proyecto_js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "oldFunctions.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-css": "sass scss/style.scss css/style.css",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\""
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martinvillarreal5/Proyecto_JS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/martinvillarreal5/Proyecto_JS/issues"
+  },
+  "homepage": "https://github.com/martinvillarreal5/Proyecto_JS#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "sass": "^1.49.7"
+  }
+}
