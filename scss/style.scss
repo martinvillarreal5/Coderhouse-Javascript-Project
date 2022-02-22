@@ -1,3 +1,7 @@
+@import "cart.scss";
+@import "register.scss";
+
+
 * {
     font-family: sans-serif;
 }
@@ -7,17 +11,26 @@ body {
     width: 100%;
     overflow-x: hidden;
 }
+main {
+    grid-area: main;
+    // margin-top: calc(4.625rem + 3.7rem); // para despues
+    margin-top: 4.625rem;
+    /* lo que mide el navbar, para que no se superponga */
+}
 
-#grid_areas {
+.principal-grid {
     display: grid;
     grid-template-areas:
         "header"
-        "store"
+        "main"
         "footer";
     grid-template-columns: auto;
     grid-template-rows: auto 1fr auto;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
+}
+main {
+    grid-area: main;
 }
 button:focus {
     box-shadow: none;
@@ -52,10 +65,20 @@ nav {
         .navbar-toggler {
             border: none;
             outline: none;
+            &:focus {
+                box-shadow: none; // quita el pseudo-outline de bootstrap
+            }
+            //cuando el menu e bootstrap esta abierto:
+            &[aria-expanded="true"]{
+               color: #000;
+               // para que esto tome efecto devo cambiar el icono a un i con la clase fas,
+               // en vez del span, ya que eso usa un background image
+             }
         }
     }
 
     .navbar-collapse {
+        justify-content: space-between;
         .navbar-nav {
             a {
                 font-size: 1.5rem;
@@ -83,10 +106,6 @@ nav {
 //Store Elements
 
 #store {
-    grid-area: store;
-    // margin-top: calc(4.625rem + 3.7rem); // para despues
-    margin-top: 4.625rem;
-    /* lo que mide el navbar, para que no se superponga */
     padding: 10px;
     background-color: white;
     text-align: center;
@@ -107,105 +126,22 @@ nav {
 
 
 
-//Cart Elements
-
-#cart {
-    grid-area: cart;
-    display: none;
-    background-color: whitesmoke;
-    color: #000;
-    text-align: center;
-    height: calc(100% - 4.625rem);
-    width: 100%;
-    padding: 1rem 0;
-    z-index: 1;
-    position: fixed;
-    top: 4.625rem;/* lo que mide el nav, despues cambiar cuando se abre el menu desplegable */
-    left: 50%;/* junto al transform centra el carrito al medio*/
-    transform: translateX(-50%);
-    overflow-x: hidden;
-
-    #cart__container {
-        display: flex;
-        flex-wrap: nowrap;
-        flex-flow: column;
-        flex-direction: column;
-        padding-bottom: 1rem;
-        max-height: 80%;
-        overflow-y: auto;
-
-        .cart__item {
-            display: grid;
-            grid-template-areas:
-                "cart__item-img cart__item-name cart__item-name cart__item-name"
-                "cart__item-img cart__item-price cart__item-price cart__item-price"
-                "cart__item-img cart__minus-btn cart__item-quantity cart__plus-btn";
-            grid-template-columns: auto 20% 30% 20%;
-            grid-template-rows: 1fr 1fr 1fr;
-            grid-column-gap: 0px;
-            grid-row-gap: 0px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            margin: 0.25rem;
-            font-size: 1.25rem;
-            background-color: white;
-            color: black;
-            align-items: center;
-            max-height: 10rem;
-
-            img {
-                grid-area: cart__item-img;
-                width: auto;
-                height: 100%;
-                margin: 0 auto;
-                object-fit: contain;
-                display: block;
-            }
-
-            .cart__item-name {
-                grid-area: cart__item-name;
-            }
-
-            .cart__item-price {
-                grid-area: cart__item-price;
-            }
-
-            .cart__item-quantity {
-                grid-area: cart__item-quantity;
-                width: 3rem;
-                text-align: center;
-                margin: auto;
-            }
-
-            .cart__qty-btn {
-                background-color: transparent;
-                color: black;
-                font-size: 1.25rem;
-                border: none;
-            }
-
-            .cart__minus-btn {
-                grid-area: cart__minus-btn;
-            }
-
-            .cart__plus-btn {
-                grid-area: cart__plus-btn;
-            }
-        }
-    }
-    #cart__total-txt {
-        margin-top: 0.5rem;
-        font-size: 1.5rem;
-    }
-}
 
 //Footer
 
 footer {
     grid-area: footer;
     display: flex;
+    justify-content: center;
+    text-align: center;
     align-items: center;
     padding: 10px;
     background-color: whitesmoke;
+    border-top: black solid 0.1rem;
+    p{
+        margin: 0;
+        font-size: 1rem;
+    }
 }
 
 /* Small devices (landscape phones, 576px and up) */
@@ -225,18 +161,15 @@ footer {
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-    #cart {
-        width: 65%;
-        box-shadow: -1px 0 0 black, 1px 0 0 black;
-        /* Para aplicar "outline" a los costados */
+    .navbar-collapse {
+        margin-right: 2rem;
     }
-
     #nav__cart-btn {
         position: fixed;
         right: 0;
         transform: translateY(-50%);
         margin-right: var(--bs-gutter-x, 0.75rem);
-        margin-right: 0.75rem;
+        //margin-right: 0.75rem;
         #nav__cart-badge {
             font-size: .75rem;
             opacity: 0;
@@ -249,8 +182,4 @@ footer {
 @media (min-width: 1200px) {}
 
 /* XX-Large devices (larger desktops, 1400px and up) */
-@media (min-width: 1400px) {
-    #cart {
-        width: 50%;
-    }
-}
+@media (min-width: 1400px) {}

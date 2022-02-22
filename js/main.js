@@ -15,28 +15,34 @@ function renderStoreItems() {
 }
 
 function renderCartItem(product) {
-  let item = $(`<div id="cart__item-${product.id}" class="cart__item" >
-                    <img src=${product.image} alt="aqui va una imagen">
-                    <label  class="cart__item-name">${product.name} </label>
-                    <label  class="cart__item-price" id="cart__item-price-${
-                      product.id
-                    }">${product.price * product.selected}$</label>
-                    <button class="cart__minus-btn cart__qty-btn" id="cart__minus-btn-${
-                      product.id
-                    }"><i class="bi bi-dash-circle"></i></button>
-                    <input type="number" inputmode="numeric" pattern="[0-9]*" value="${
-                      product.selected
-                    }" class="cart__item-quantity" id="cart__item-quantity-${
-    product.id
-  }"> 
-                    <button class="cart__qty-btn cart__plus-btn" id="cart__plus-btn-${
-                      product.id
-                    }"><i class="bi bi-plus-circle"></i>
-                    </button>
-                    <button class="cart__remove-btn" id="cart__remove-btn-${
-                      product.id
-                    }"><i class="bi bi-trash"></i></button>
-                </div>`);
+  let item = $(`
+  <div id="cart__item-${product.id}" class="cart__item">
+    <img class="cart__item-img " src=${product.image} alt="aqui va una imagen">
+    <div class="cart__item-body container-fluid">
+      <div class="row align-items-center h-100">
+        <div class="col-7 col-sm-8">
+          <div class="row align-items-center">
+            <div class="col-12 col-sm-6">
+              <label class="cart__item-name">${product.name} </label>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="cart__item-qty-container">
+                  <button class="cart__minus-btn cart__qty-btn" id="cart__minus-btn-${ product.id}"><i class="bi bi-dash-circle"></i></button>
+                  <input class="cart__item-quantity" id="cart__item-quantity-${product.id}" type="number" inputmode="numeric" pattern="[0-9]*" value="${product.selected}">
+                  <button class="cart__qty-btn cart__plus-btn" id="cart__plus-btn-${product.id}"><i class="bi bi-plus-circle"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-5 col-sm-4 d-flex flex-column">
+          <label class="cart__item-price" id="cart__item-price-${product.id}">${product.selected}x${product.price}$:</label>
+          <label class="cart__item-total-price" id="cart__item-total-price-${product.id}">${product.price * product.selected}$</label>
+        </div>
+      </div>
+    </div>
+    <button class="cart__remove-btn" id="cart__remove-btn-${product.id}"><i class="bi bi-trash"></i></button>
+  </div>`
+  );
   $("#cart__container").append(item);
   addEventListenerToQuantityInput(product.id);
   addEventListenerToPlusButton(product.id);
@@ -69,7 +75,7 @@ function increaseProduct(id) {
   product.selected++;
   updateLocalStorage("cart", cart);
   updateItemQuantity(product.id, product.selected);
-  updateItemPrice(id, product.price * product.selected);
+  updateItemPrice(product.id, product.price,  product.selected);
   updateTotalPriceText();
 }
 
@@ -80,7 +86,7 @@ function decreaseProduct(id) {
     removeProductFromCart(product);
   } else {
     updateItemQuantity(product.id, product.selected);
-    updateItemTotalPrice(product.id, product.selected * product.price);
+    updateItemPrice(product.id, product.price,  product.selected);
     updateLocalStorage("cart", cart);
     updateTotalPriceText();
   }
@@ -106,21 +112,13 @@ function removeProductFromCart(product) {
   updateTotalPriceText();
 }
 
-function updateItemPrice(id, total) {
-  $(`#cart__item-price-${id}`).text(`${total}$`);
-}
-
 function updateItemQuantity(id, quantity) {
   $(`#cart__item-quantity-${id}`).val(quantity);
 }
-function updateItemTotalPrice(id, value) {
-  $(`#cart__item-price-${id}`).text(`${value}$`);
-}
+function updateItemPrice(id, price, quantity) {
 
-function addEventListenerToMinusButton(id) {
-  $(`#cart__minus-btn-${id}`).click(function () {
-    decreaseProduct(id);
-  });
+  $(`#cart__item-price-${id}`).text(`${quantity}x${price}$:`);
+  $(`#cart__item-total-price-${id}`).text(`${price * quantity}$`);
 }
 
 function updateTotalPriceText() {
@@ -156,20 +154,26 @@ function addEventListenerToPlusButton(id) {
   });
 }
 
+function addEventListenerToMinusButton(id) {
+  $(`#cart__minus-btn-${id}`).click(function () {
+    decreaseProduct(id);
+  });
+}
+
 function addEventListenerToQuantityInput(id) {
   $(`#cart__item-quantity-${id}`).change(function () {
     let product = cart.find((item) => item.id == id);
     let quantity = parseInt($(`#cart__item-quantity-${id}`).val());
     if (quantity == 0) {
       removeProductFromCart(product);
-    } else if (quantity < 0) {
-      // add popover saying wrong value or block input for only 0/1-99 numbers
+    } else if (quantity < 0 || isNaN(quantity)==true) {
+      // add popover saying wrong value or block input for only 0/1-99.. numbers
       updateItemQuantity(product.id, product.selected);
-      updateItemTotalPrice(product.id, product.selected * product.price);
+      updateItemPrice(product.id, product.price,  product.selected);
     } else {
       product.selected = quantity;
       updateItemQuantity(product.id, product.selected);
-      updateItemTotalPrice(product.id, product.selected * product.price);
+      updateItemPrice(product.id, product.price,  product.selected);
       updateLocalStorage("cart", cart);
       updateTotalPriceText();
     }
@@ -241,8 +245,6 @@ class Product {
   }
 }
 
-//main
-
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 if (cart.length > 0) {
@@ -251,21 +253,24 @@ if (cart.length > 0) {
 addEventListenerToNavCartButton();
 
 const products = [];
-let testarray = [];
+
 $(document).ready(function () {
-  $.getJSON("json/products.json", function (data) {
-    data.forEach(function (item) {
-      products.push(
-        new Product(
-          item.id,
-          item.name,
-          item.price,
-          item.image,
-          item.description,
-          item.category
-        )
-      );
+  // debe ejecutarse desde el index para que el if se cumpla
+  if (window.location.pathname == "/index.html") {
+    $.getJSON("json/products.json", function (data) {
+      data.forEach(function (jsonitem) {
+        products.push(
+          new Product(
+            jsonitem.id,
+            jsonitem.name,
+            jsonitem.price,
+            jsonitem.image,
+            jsonitem.description,
+            jsonitem.category
+          )
+        );
+      });
+      renderStoreItems();
     });
-    renderStoreItems();
-  });
+  }
 });
