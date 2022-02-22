@@ -256,7 +256,7 @@ const products = [];
 
 $(document).ready(function () {
   // debe ejecutarse desde el index para que el if se cumpla
-  if (window.location.pathname == "/index.html" || window.location.pathname == "/") {
+  if (window.location.pathname == "/index.html" || window.location.pathname == "/" || window.location.pathname == "/Proyecto_JS") {
     $.getJSON("json/products.json", function (data) {
       data.forEach(function (jsonitem) {
         products.push(
