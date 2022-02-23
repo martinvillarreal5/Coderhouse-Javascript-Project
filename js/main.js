@@ -101,8 +101,11 @@ function removeProductFromCart(product) {
     cart.splice(index, 1); // remueve el index del array.el 1er parametro indica el indice, el 2do indica cantidad a borrar desde el indice
   }
   if (cart.length == 0) {
-    $("#cart__buy-btn").remove(); //TODO cambiar a ocultar/mostar
-    toggleShowNavCartBadge();
+    $(`#cart__buy-btn`).slideUp(500, function () {
+      $("#cart__buy-btn").remove(); //TODO cambiar a ocultar/mostar
+      toggleShowNavCartBadge();
+    });
+    
   }
   $(`#cart__item-${product.id}`).slideUp(500, function () {
     $(`#cart__item-${product.id}`).remove();
@@ -247,16 +250,18 @@ class Product {
 
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-if (cart.length > 0) {
-  loadLocalStorageCart();
-}
-addEventListenerToNavCartButton();
-
 const products = [];
 
 $(document).ready(function () {
-  // debe ejecutarse desde el index para que el if se cumpla
-  if (window.location.pathname == "/index.html" || window.location.pathname == "/" || window.location.pathname == "/Proyecto_JS") {
+  if (cart.length > 0) {
+    loadLocalStorageCart();
+  }
+  addEventListenerToNavCartButton();
+  if (window.location.pathname == "/pages/account/register.html" ||
+   window.location.pathname == "/pages/account/login.html" || 
+   window.location.pathname == "/pages/contact.html"){
+  }
+  else {
     $.getJSON("json/products.json", function (data) {
       data.forEach(function (jsonitem) {
         products.push(
