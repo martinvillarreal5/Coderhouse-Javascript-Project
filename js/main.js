@@ -257,9 +257,9 @@ $(document).ready(function () {
     loadLocalStorageCart();
   }
   addEventListenerToNavCartButton();
-  if (window.location.pathname == "/pages/account/register.html" ||
-   window.location.pathname == "/pages/account/login.html" || 
-   window.location.pathname == "/pages/contact.html"){
+  if (window.location.pathname == "/pages/register/" ||
+   window.location.pathname == "/pages/login/" || 
+   window.location.pathname == "/pages/contact/"){
   }
   else {
     $.getJSON("json/products.json", function (data) {
