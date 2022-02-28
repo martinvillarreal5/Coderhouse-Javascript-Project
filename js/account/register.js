@@ -1,7 +1,4 @@
-//validaciones por defecto de html no siempre funcionan si se usa un dato de cuenta guardado
-
 $(document).ready(function () {
-  //submit
   $("#register-form").submit(function (event) {
     event.preventDefault();
 
@@ -10,7 +7,10 @@ $(document).ready(function () {
     let emailValue = $("#register-form__email").val();
 
     if(users.find(user => user.username == usernameValue)){
-      alert("El usuario ya existe");
+      alert("This username is already taken");
+      return;
+    } else if(users.find(user => user.email == emailValue)){
+      alert("This email is already taken");
       return;
     }
 
@@ -32,13 +32,19 @@ $(document).ready(function () {
             response.password
           ))
           localStorage.setItem("users", JSON.stringify(users));
-          alert(`Registration Succesfull:
-          Username: ${response.username}
-          Email: ${response.email}
-          Id: ${response.id}
-          Created at: ${response.createdAt}  
-          `);
-          window.location.href = "../../index.html";
+          Swal.fire({
+            title: 'Registration Succesful',
+            text: ` 
+            Created at: ${response.createdAt}  
+            `,
+            /* Username: ${response.username}
+            Email: ${response.email} 
+            Id: ${response.id} */
+            icon: 'success',
+            confirmButtonText: 'Continue'
+          }).then( () => {
+          window.location.href = "../../";
+          })
       }
     });
   });

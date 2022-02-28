@@ -18,9 +18,10 @@
 }
 #cart #cart__container {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  flex-flow: column;
   flex-direction: column;
-  max-height: 80%;
+  height: auto;
   overflow-y: auto;
 }
 #cart #cart__container .cart__item {
@@ -39,8 +40,12 @@
   object-fit: contain;
   display: block;
 }
-#cart #cart__total-txt {
-  margin-top: 0.5rem;
+#cart #cart__is-empty {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+#cart #cart__total-price {
+  margin-top: 1rem;
   font-size: 1.5rem;
 }
 
@@ -149,6 +154,35 @@
     padding: 2rem 20rem;
   }
 }
+#login-container {
+  padding: 2rem 1rem;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+/*  Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  #login-container {
+    padding: 2rem 4rem;
+  }
+}
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  #login-container {
+    padding: 2rem 8rem;
+  }
+}
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  #login-container {
+    padding: 2rem 12rem;
+  }
+}
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+  #login-container {
+    padding: 2rem 20rem;
+  }
+}
 * {
   font-family: sans-serif;
 }
@@ -238,7 +272,7 @@ nav .navbar-collapse .navbar-nav a {
 }
 
 #store {
-  padding: 10px;
+  padding: 0.75rem var(--bs-gutter-x, 0.75rem);
   background-color: white;
   text-align: center;
 }
@@ -250,6 +284,10 @@ nav .navbar-collapse .navbar-nav a {
 #store .store__item {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   background-color: whitesmoke;
+}
+#store .store__item .card-img-top {
+  height: 15rem;
+  object-fit: cover;
 }
 
 footer {
@@ -282,7 +320,7 @@ footer p {
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   .navbar-collapse {
-    margin-right: 2rem;
+    margin-right: 2.25rem;
   }
 
   #nav__cart-btn {
@@ -290,11 +328,11 @@ footer p {
     right: 0;
     transform: translateY(-50%);
     margin-right: var(--bs-gutter-x, 0.75rem);
+    margin-right: 1rem;
   }
   #nav__cart-btn #nav__cart-badge {
     font-size: 0.75rem;
     opacity: 0;
-    top: 0.25rem;
   }
 }
 /* X-Large devices (large desktops, 1200px and up) */

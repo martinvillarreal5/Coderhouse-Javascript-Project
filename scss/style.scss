@@ -1,5 +1,6 @@
 @import "cart.scss";
 @import "register.scss";
+@import "login.scss";
 
 
 * {
@@ -106,7 +107,7 @@ nav {
 //Store Elements
 
 #store {
-    padding: 10px;
+    padding: .75rem var(--bs-gutter-x,.75rem);
     background-color: white;
     text-align: center;
 
@@ -119,8 +120,13 @@ nav {
     .store__item {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         background-color: whitesmoke;
+        .card-img-top{
+            height: 15rem;
+            object-fit: cover;
+        }
     }
 }
+
 
 
 
@@ -169,11 +175,12 @@ footer {
         right: 0;
         transform: translateY(-50%);
         margin-right: var(--bs-gutter-x, 0.75rem);
+        margin-right: 1rem;
         //margin-right: 0.75rem;
         #nav__cart-badge {
             font-size: .75rem;
             opacity: 0;
-            top: 0.25rem;
+            //top: 0.25rem;
         }
     }
 }

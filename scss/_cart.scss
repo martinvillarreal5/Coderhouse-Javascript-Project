@@ -20,9 +20,10 @@
 
     #cart__container {
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
+        flex-flow: column;
         flex-direction: column;
-        max-height: 80%;
+        height: auto;
         overflow-y: auto;
 
         .cart__item {
@@ -46,9 +47,13 @@
 
         }
     }
+    #cart__is-empty{
+        font-size: 1.5rem;
+        margin: 1rem 0;
+    }
 
-    #cart__total-txt {
-        margin-top: 0.5rem;
+    #cart__total-price {
+        margin-top: 1rem;
         font-size: 1.5rem;
     }
 }
@@ -73,7 +78,6 @@
         border-radius: 0.5rem;
 
     }
-
     .cart__qty-btn {
         display: none;
         background-color: transparent;
@@ -88,6 +92,7 @@
     font-size: .75rem;
     color: #585858;
 }
+
 
 .cart__item-total-price {
     font-size: 1.25rem;

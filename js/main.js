@@ -1,3 +1,7 @@
+
+
+// Store
+
 function renderStoreItems() {
   products.forEach(function (product) {
     let item =
@@ -13,6 +17,36 @@ function renderStoreItems() {
   });
   addEventListenerToAddButtons();
 }
+
+function addEventListenerToAddButtons() {
+  $(".store__add-btn").click(function () {
+    let id = $(this).attr("id").split("-")[2];
+    if (cart.find((item) => item.id == id)) {
+      increaseProduct(id);
+    } else {
+      addProductToCart(id);
+    }
+  });
+}
+
+function addProductToCart(id) {
+  let product = products.find((item) => item.id == id);
+  cart.push(product);
+  increaseProduct(id);
+  updateLocalStorage("cart", cart);
+  renderCartItem(product);
+  updateNavCartCounter();
+  if (cart.length == 1) {
+    toggleCartBuyButton();
+    toggleRemoveAllProductsButton();
+    toggleIsEmptyText();
+    toggleShowNavCartBadge();
+  }
+  updateTotalPriceText();
+}
+
+// Cart
+
 
 function renderCartItem(product) {
   let item = $(`
@@ -49,27 +83,7 @@ function renderCartItem(product) {
   addEventListenerToMinusButton(product.id);
   addEventListenerToRemoveProductButton(product.id);
 }
-function renderBuyButton() {
-  let buyBtn = $(
-    `<button type="button" id="cart__buy-btn" class="btn btn-success">Comprar</button>`
-  );
-  $("#cart").append(buyBtn);
-  addEventListenerToBuyButton();
-}
 
-function addProductToCart(id) {
-  let product = products.find((item) => item.id == id);
-  cart.push(product);
-  increaseProduct(id);
-  updateLocalStorage("cart", cart);
-  renderCartItem(product);
-  updateNavCartCounter();
-  if (cart.length == 1) {
-    renderBuyButton();
-    toggleShowNavCartBadge();
-  }
-  updateTotalPriceText();
-}
 function increaseProduct(id) {
   let product = cart.find((item) => item.id == id);
   product.selected++;
@@ -77,6 +91,7 @@ function increaseProduct(id) {
   updateItemQuantity(product.id, product.selected);
   updateItemPrice(product.id, product.price,  product.selected);
   updateTotalPriceText();
+  updateNavCartCounter();
 }
 
 function decreaseProduct(id) {
@@ -89,30 +104,33 @@ function decreaseProduct(id) {
     updateItemPrice(product.id, product.price,  product.selected);
     updateLocalStorage("cart", cart);
     updateTotalPriceText();
+    updateNavCartCounter();
   }
 }
 
 function removeProductFromCart(product) {
-  const index = cart.indexOf(product); //devuelve el indice del producto
+  const index = cart.indexOf(product);
   if (product.selected > 0) {
-    product.selected = 0; // ya que el producto comparte direccion de memoria con en ambos arrays. si llamo a esta funcion sin antes llamar decrease product, el producto no se actualiza y cuando agrego nuevamente el producto al carro conserva la cantidad que tenia al momento de llamar esta funcion en vez de 0 como deberia ser
+    product.selected = 0; 
   }
   if (index > -1) {
-    cart.splice(index, 1); // remueve el index del array.el 1er parametro indica el indice, el 2do indica cantidad a borrar desde el indice
+    cart.splice(index, 1); //removes the index
   }
   if (cart.length == 0) {
-    $(`#cart__buy-btn`).slideUp(500, function () {
-      $("#cart__buy-btn").remove(); //TODO cambiar a ocultar/mostar
-      toggleShowNavCartBadge();
-    });
-    
+    toggleCartBuyButton();
+    toggleRemoveAllProductsButton();
+    toggleIsEmptyText();
+    toggleShowNavCartBadge();
   }
-  $(`#cart__item-${product.id}`).slideUp(500, function () {
-    $(`#cart__item-${product.id}`).remove();
-  });
+  deleteCartItem(product.id);
   updateNavCartCounter();
   updateLocalStorage("cart", cart);
   updateTotalPriceText();
+}
+function deleteCartItem(id) {
+  $(`#cart__item-${id}`).slideUp(500, function () {
+    $(`#cart__item-${id}`).remove();
+  });
 }
 
 function updateItemQuantity(id, quantity) {
@@ -137,20 +155,27 @@ function updateTotalPriceText() {
   }
 }
 
-function updateNavCartCounter() {
-  $("#nav__cart-counter").text(cart.length);
-}
-
-function addEventListenerToAddButtons() {
-  $(".store__add-btn").click(function () {
-    let id = $(this).attr("id").split("-")[2];
-    if (cart.find((item) => item.id == id)) {
-      increaseProduct(id);
+function addEventListenerToQuantityInput(id) {
+  $(`#cart__item-quantity-${id}`).change(function () {
+    let product = cart.find((item) => item.id == id);
+    let quantity = parseInt($(`#cart__item-quantity-${id}`).val());
+    if (quantity == 0) {
+      removeProductFromCart(product);
+    } else if (quantity < 0 || isNaN(quantity)==true) {
+      // TODO add popover saying wrong value or block input for only 0/1-99.. numbers
+      updateItemQuantity(product.id, product.selected);
+      updateItemPrice(product.id, product.price,  product.selected);
     } else {
-      addProductToCart(id);
+      product.selected = quantity;
+      updateItemQuantity(product.id, product.selected);
+      updateItemPrice(product.id, product.price,  product.selected);
+      updateNavCartCounter()
+      updateLocalStorage("cart", cart);
+      updateTotalPriceText();
     }
   });
 }
+
 function addEventListenerToPlusButton(id) {
   $(`#cart__plus-btn-${id}`).click(function () {
     increaseProduct(id);
@@ -163,25 +188,7 @@ function addEventListenerToMinusButton(id) {
   });
 }
 
-function addEventListenerToQuantityInput(id) {
-  $(`#cart__item-quantity-${id}`).change(function () {
-    let product = cart.find((item) => item.id == id);
-    let quantity = parseInt($(`#cart__item-quantity-${id}`).val());
-    if (quantity == 0) {
-      removeProductFromCart(product);
-    } else if (quantity < 0 || isNaN(quantity)==true) {
-      // add popover saying wrong value or block input for only 0/1-99.. numbers
-      updateItemQuantity(product.id, product.selected);
-      updateItemPrice(product.id, product.price,  product.selected);
-    } else {
-      product.selected = quantity;
-      updateItemQuantity(product.id, product.selected);
-      updateItemPrice(product.id, product.price,  product.selected);
-      updateLocalStorage("cart", cart);
-      updateTotalPriceText();
-    }
-  });
-}
+
 
 function addEventListenerToRemoveProductButton(id) {
   $(`#cart__remove-btn-${id}`).click(function () {
@@ -190,14 +197,79 @@ function addEventListenerToRemoveProductButton(id) {
   });
 }
 
-function addEventListenerToBuyButton() {
-  $("#cart__buy-btn").click(function () {
-    alert("Compra realizada con exito");
-    cart.splice(0, cart.length);
-    updateLocalStorage("cart", cart);
-    location.reload();
+
+
+function removeAllProducts(){
+  cart.forEach((product) => {
+    deleteCartItem(product.id);
+    product.selected = 0;
   });
+  cart.splice(0, cart.length); //cleans the array.
+  updateLocalStorage("cart", cart);
 }
+
+function buyCart() {
+  removeAllProducts();
+  toggleCartBuyButton()
+  toggleRemoveAllProductsButton()
+  toggleIsEmptyText()
+  toggleShowNavCartBadge();
+  updateNavCartCounter();
+  updateTotalPriceText();
+  Swal.fire({
+    title: 'Thanks for buying at The Store!',
+    icon: 'success',
+    confirmButtonText: 'Continue'
+  })
+  
+}
+
+function toggleCartBuyButton() {
+  if ($("#cart__buy-btn").hasClass("disabled")) {
+    $("#cart__buy-btn").removeClass("disabled");
+  } else {
+    $("#cart__buy-btn").addClass("disabled");
+  }
+  if (cart.length == 0) {
+    $("#cart__buy-btn").off("click", buyCart);
+  }
+  else {
+    $("#cart__buy-btn").on("click", buyCart);
+  }
+}
+function toggleRemoveAllProductsButton() {
+  if ($("#cart__remove-all-btn").hasClass("disabled")) {
+    $("#cart__remove-all-btn").removeClass("disabled");
+  } else {
+    $("#cart__remove-all-btn").addClass("disabled");
+  }
+}
+function toggleIsEmptyText(){
+  $("#cart__is-empty").slideToggle(500);
+}
+
+function loadLocalStorageCart() {
+  cart.forEach((product) => {
+    renderCartItem(product);
+  });
+  toggleCartBuyButton();
+  toggleRemoveAllProductsButton();
+  toggleIsEmptyText();
+  toggleShowNavCartBadge();
+  updateNavCartCounter();
+  updateTotalPriceText();
+}
+
+// Nav
+
+function updateNavCartCounter() {
+  let totalQuantity = 0;
+  cart.forEach((product) => {
+    totalQuantity += product.selected;
+  });
+  $("#nav__cart-counter").text(totalQuantity);
+}
+
 function addEventListenerToNavCartButton() {
   $("#nav__cart-btn").click(function () {
     $("#cart").slideToggle("550");
@@ -222,19 +294,13 @@ function toggleShowNavCartBadge() {
   }
 }
 
-function loadLocalStorageCart() {
-  cart.forEach((product) => {
-    renderCartItem(product);
-  });
-  toggleShowNavCartBadge();
-  updateNavCartCounter();
-  updateTotalPriceText();
-  renderBuyButton();
-}
+// General
 
 function updateLocalStorage(keyName, keyValue) {
   localStorage.setItem(keyName, JSON.stringify(keyValue));
 }
+
+// Main
 
 class Product {
   constructor(id, name, price, image, description, category) {
@@ -260,8 +326,10 @@ $(document).ready(function () {
   if (window.location.pathname == "/pages/register/" ||
    window.location.pathname == "/pages/login/" || 
    window.location.pathname == "/pages/contact/"){
+     // it doesnt get the products from the json and doesnt load the store items.
   }
   else {
+    /*
     $.getJSON("json/products.json", function (data) {
       data.forEach(function (jsonitem) {
         products.push(
@@ -277,5 +345,22 @@ $(document).ready(function () {
       });
       renderStoreItems();
     });
+    */
+    $.getJSON("https://fakestoreapi.com/products", function (data) {
+      data.forEach(function (jsonitem) {
+        products.push(
+          new Product(
+            jsonitem.id,
+            jsonitem.title,
+            jsonitem.price,
+            jsonitem.image,
+            jsonitem.description,
+            jsonitem.category
+          )
+        );
+      });
+      renderStoreItems();
+    });
   }
+
 });
