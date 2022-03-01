@@ -1,0 +1,130 @@
+[
+    {
+        "id": 9,
+        "title": "Polo Long Sleeves",
+        "price": "14.00",
+        "category": "shirt",
+        "color": "black",
+        "imageFront": "../images/product-images/600width/shirts/long-collared-dots-shirt-black-front.jpeg",
+        "imageBack": "../images/product-images/600width/shirts/long-collared-dots-shirt-black-back.jpeg"
+    },
+    {
+        "id": 10,
+        "title": "Polo Long Sleeves",
+        "price": "14.00",
+        "category": "shirt",
+        "color": "bordeaux",
+        "imageFront": "../images/product-images/600width/shirts/long-collared-dots-shirt-bordeaux-front.jpeg",
+        "imageBack": "../images/product-images/600width/shirts/long-collared-dots-shirt-bordeaux-back.jpeg"
+    },
+    {
+        "id": 11,
+        "title": "Polo Long Sleeves",
+        "price": "14.00",
+        "category": "shirt",
+        "color": "black",
+        "imageFront": "../images/product-images/600width/shirts/long-collarerd-shirt-black-front.jpeg",
+        "imageBack": "../images/product-images/600width/shirts/long-collared-shirt-black-back.jpeg"
+    },
+    {
+        "id": 12,
+        "title": "Polo Long Sleeves",
+        "price": "14.00",
+        "category": "shirt",
+        "color": "bordeaux",
+        "imageFront": "../images/product-images/600width/shirts/long-collared-shirt-bordeaux-front.jpeg",
+        "imageBack": "../images/product-images/600width/shirts/long-collared-shirt-bordeaux-back.jpeg"
+    },
+    {
+        "id": 13,
+        "title": "Shirt Long Sleeves",
+        "price": "10.00",
+        "category": "shirt",
+        "color": "black",
+        "imageFront": "../images/product-images/600width/shirts/long-tshirt-black-front.jpeg",
+        "imageBack": "../images/product-images/600width/shirts/long-tshirt-black-back.jpeg"
+    },
+    {
+        "id": 14,
+        "title": "Shirt Long Sleeves",
+        "price": "10.00",
+        "category": "shirt",
+        "color": "grey",
+        "imageFront": "../images/product-images/600width/shirts/long-tshirt-grey-front.jpeg",
+        "imageBack": "../images/product-images/600width/shirts/long-tshirt-grey-back.jpeg"
+    },
+    {
+        "id": 15,
+        "title": "Shirt Long Sleeves",
+        "price": "10.00",
+        "category": "shirt",
+        "color": "white",
+        "imageFront": "../images/product-images/600width/shirts/long-tshirt-white-front.jpeg",
+        "imageBack": "../images/product-images/600width/shirts/long-tshirt-white-back.jpeg"
+    },
+    {
+        "id": 16,
+        "title": "Polo Shirt",
+        "price": "10.00",
+        "category": "shirt",
+        "color": "blue",
+        "imageFront": "../images/product-images/600width/shirts/polo-blue-front.jpeg",
+        "imageBack": "../images/product-images/600width/shirts/polo-blue-back.jpeg"
+    },
+    {
+        "id": 17,
+        "title": "Polo Shirt",
+        "price": "10.00",
+        "category": "shirt",
+        "color": "yellow",
+        "imageFront": "../images/product-images/600width/shirts/polo-yellow-front.jpeg",
+        "imageBack": "../images/product-images/600width/shirts/polo-yellow-back.jpeg"
+    },
+    {
+        "id": 18,
+        "title": "Polo Shirt",
+        "price": "10.00",
+        "category": "shirt",
+        "color": "white",
+        "imageFront": "../images/product-images/600width/shirts/polo-white-front.jpeg",
+        "imageBack": "../images/product-images/600width/shirts/polo-white-back.jpeg"
+    },
+    {
+        "id": 19,
+        "title": "T-Shirt",
+        "price": "10.00",
+        "category": "shirt",
+        "color": "green",
+        "imageFront": "../images/hoodie/product-images/600width/shirts/tshirt-green-front.jpeg",
+        "imageBack": "../images/hoodie/product-images/600width/shirts/tshirt-green-back.jpeg"
+    },
+    {
+        "id": 20,
+        "title": "T-Shirt",
+        "price": "10.00",
+        "category": "shirt",
+        "color": "white",
+        "imageFront": "../images/hoodie/product-images/600width/shirts/tshirt-white-front.jpeg",
+        "imageBack": "../images/hoodie/product-images/600width/shirts/tshirt-white-back.jpeg"
+    },
+    {
+        "id": 21,
+        "title": "V-neck T-Shirt",
+        "price": "10.00",
+        "category": "shirt",
+        "color": "black",
+        "imageFront": "../images/hoodie/product-images/600width/shirts/vneck-tshirt-black-front.jpeg",
+        "imageBack": "../images/hoodie/product-images/600width/shirts/vneck-tshirt-black-back.jpeg"
+    },
+    {
+        "id": 22,
+        "title": "V-neck T-Shirt",
+        "price": "10.00",
+        "category": "shirt",
+        "color": "white",
+        "imageFront": "../images/hoodie/product-images/600width/shirts/vneck-tshirt-white-front.jpeg",
+        "imageBack": "../images/hoodie/product-images/600width/shirts/vneck-tshirt-white-back.jpeg"
+    }
+]
+
+

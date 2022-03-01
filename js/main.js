@@ -6,7 +6,7 @@ function renderStoreItems() {
   products.forEach(function (product) {
     let item =
       $(`<div class="store__item card text-center" style="width: 18rem; margin: clamp(5px, 1%, 10px); ">
-      <img class="card-img-top" src=${product.image} alt="Card image cap">
+      <img class="card-img-top" src=${product.imageFront} alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">${product.name}</h5>
         <h5 class="card-title">${product.price}$</h5>
@@ -51,7 +51,7 @@ function addProductToCart(id) {
 function renderCartItem(product) {
   let item = $(`
   <div id="cart__item-${product.id}" class="cart__item">
-    <img class="cart__item-img " src=${product.image} alt="aqui va una imagen">
+    <img class="cart__item-img " src=${product.imageFront} alt="aqui va una imagen">
     <div class="cart__item-body container-fluid">
       <div class="row align-items-center h-100">
         <div class="col-7 col-sm-8">
@@ -267,6 +267,9 @@ function updateNavCartCounter() {
   cart.forEach((product) => {
     totalQuantity += product.selected;
   });
+  if (totalQuantity > 9) {
+    totalQuantity = "9+";
+  }
   $("#nav__cart-counter").text(totalQuantity);
 }
 
@@ -303,13 +306,14 @@ function updateLocalStorage(keyName, keyValue) {
 // Main
 
 class Product {
-  constructor(id, name, price, image, description, category) {
+  constructor(id, name, price, category, color, imageFront, imageBack) {
     this.id = id;
     this.name = name;
     this.price = price;
-    this.image = image;
-    this.description = description;
     this.category = category;
+    this.color = color;
+    this.imageFront = imageFront;
+    this.imageBack = imageBack;
     this.selected = 0;
   }
 }
@@ -329,38 +333,71 @@ $(document).ready(function () {
      // it doesnt get the products from the json and doesnt load the store items.
   }
   else {
-    /*
-    $.getJSON("json/products.json", function (data) {
-      data.forEach(function (jsonitem) {
-        products.push(
-          new Product(
-            jsonitem.id,
-            jsonitem.name,
-            jsonitem.price,
-            jsonitem.image,
-            jsonitem.description,
-            jsonitem.category
-          )
-        );
-      });
-      renderStoreItems();
-    });
-    */
-    $.getJSON("https://fakestoreapi.com/products", function (data) {
+    
+    jQuery.getJSON("json/1-hoodies.json", function (data) {
       data.forEach(function (jsonitem) {
         products.push(
           new Product(
             jsonitem.id,
             jsonitem.title,
             jsonitem.price,
-            jsonitem.image,
-            jsonitem.description,
-            jsonitem.category
+            jsonitem.category,
+            jsonitem.color,
+            jsonitem.imageFront,
+            jsonitem.imageBack
           )
         );
       });
       renderStoreItems();
     });
+    
+    /*
+    $.when(
+      $.getJSON("../json/1-hoodies.json"),
+      $.getJSON("../json/2-sweaters.json"),
+      $.getJSON("../json/3-shirts.json")
+    ).done(function(hoodiesData, sweatersData, shirtsData){
+      hoodiesData[0].forEach(function (jsonitem) {
+        products.push(
+          new Product(
+            jsonitem.id,
+            jsonitem.title,
+            jsonitem.price,
+            jsonitem.category,
+            jsonitem.color,
+            jsonitem.imageFront,
+            jsonitem.imageBack
+          )
+        );
+      });
+      sweatersData[0].forEach(function (jsonitem) {
+        products.push(
+          new Product(
+            jsonitem.id,
+            jsonitem.title,
+            jsonitem.price,
+            jsonitem.category,
+            jsonitem.color,
+            jsonitem.imageFront,
+            jsonitem.imageBack
+          )
+        );
+      });
+      shirtsData[0].forEach(function (jsonitem) {
+        products.push(
+          new Product(
+            jsonitem.id,
+            jsonitem.title,
+            jsonitem.price,
+            jsonitem.category,
+            jsonitem.color,
+            jsonitem.imageFront,
+            jsonitem.imageBack
+          )
+        );
+      });
+      renderStoreItems();
+    });
+    */
   }
-
 });

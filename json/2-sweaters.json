@@ -1,0 +1,39 @@
+
+[
+    {
+        "id": 5,
+        "title": "Light V-neck Sweater",
+        "price": "12.00",
+        "category": "sweater",
+        "color": "bordeaux",
+        "imageFront": "../images/product-images/600width/sweaters/sweater-light-vneck-bordeaux-front.jpeg",
+        "imageBack": "../images/product-images/600width/sweaters/sweater-light-vneck-bordeaux-back.jpeg"
+    },
+    {
+        "id": 6,
+        "title": "V-neck Sweater",
+        "price": "12.00",
+        "category": "sweater",
+        "color": "bordeaux",
+        "imageFront": "../images/product-images/600width/sweaters/sweater-vneck-bordeaux-front.jpeg",
+        "imageBack": "../images/product-images/600width/sweaters/sweater-vneck-bordeaux-back.jpeg"
+    },
+    {
+        "id": 7,
+        "title": "Zipper Sweater",
+        "price": "12.00",
+        "category": "sweater",
+        "color": "grey",
+        "imageFront": "../images/product-images/600width/sweaters/sweater-zipper-grey-front.jpeg",
+        "imageBack": "../images/product-images/600width/sweaters/sweater-zipper-grey-back.jpeg"
+    },
+    {
+        "id": 8,
+        "title": "Zipper Sweater",
+        "price": "12.00",
+        "category": "sweater",
+        "color": "red",
+        "imageFront": "../images/product-images/600width/sweaters/sweater-zipper-red-front.jpeg",
+        "imageBack": "../images/product-images/600width/sweaters/sweater-zipper-red-back.jpeg"
+    }
+]

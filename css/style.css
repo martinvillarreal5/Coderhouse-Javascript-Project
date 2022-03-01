@@ -286,7 +286,7 @@ nav .navbar-collapse .navbar-nav a {
   background-color: whitesmoke;
 }
 #store .store__item .card-img-top {
-  height: 15rem;
+  width: 18.75rem;
   object-fit: cover;
 }
 
