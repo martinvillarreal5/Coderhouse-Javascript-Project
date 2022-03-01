@@ -334,7 +334,7 @@ $(document).ready(function () {
   }
   else {
     
-    jQuery.getJSON("../json/1-hoodies.json", function (data) {
+    jQuery.getJSON("/json/1-hoodies.json", function (data) {
       data.forEach(function (jsonitem) {
         products.push(
           new Product(
