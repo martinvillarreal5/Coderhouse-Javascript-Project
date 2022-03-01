@@ -5,8 +5,8 @@
         "price": "12.00",
         "category": "hoodie",
         "color": "blue",
-        "imageFront": "../images/product-images/600width/hoodies/hoodie-slim-blue-front.jpeg",
-        "imageBack": "../images/product-images/600width/hoodies/hoodie-slim-blue-back.jpeg"
+        "imageFront": "/images/product-images/600width/hoodies/hoodie-slim-blue-front.jpeg",
+        "imageBack": "/images/product-images/600width/hoodies/hoodie-slim-blue-back.jpeg"
     },
     {
         "id": 2,
@@ -14,8 +14,8 @@
         "price": "12.00",
         "category": "hoodie",
         "color": "red",
-        "imageFront": "../images/product-images/600width/hoodies/hoodie-slim-red-front.jpeg",
-        "imageBack": "../images/product-images/600width/hoodies/hoodie-slim-red-back.jpeg"
+        "imageFront": "/images/product-images/600width/hoodies/hoodie-slim-red-front.jpeg",
+        "imageBack": "/images/product-images/600width/hoodies/hoodie-slim-red-back.jpeg"
     },
     {
         "id": 3,
@@ -23,8 +23,8 @@
         "price": "14.00",
         "category": "hoodie",
         "color": "blue",
-        "imageFront": "../images/product-images/600width/hoodies/hoodie-zipper-slim-blue-front.jpeg",
-        "imageBack": "../images/product-images/600width/hoodies/hoodie-zipper-slim-blue-back.jpeg"
+        "imageFront": "/images/product-images/600width/hoodies/hoodie-zipper-slim-blue-front.jpeg",
+        "imageBack": "/images/product-images/600width/hoodies/hoodie-zipper-slim-blue-back.jpeg"
     },
     {
         "id": 4,
@@ -32,8 +32,8 @@
         "price": "14.00",
         "category": "hoodie",
         "color": "red",
-        "imageFront": "../images/product-images/600width/hoodies/hoodie-zipper-slim-red-front.jpeg",
-        "imageBack": "../images/product-images/600width/hoodies/hoodie-zipper-slim-red-back.jpeg"
+        "imageFront": "/images/product-images/600width/hoodies/hoodie-zipper-slim-red-front.jpeg",
+        "imageBack": "/images/product-images/600width/hoodies/hoodie-zipper-slim-red-back.jpeg"
     }
 ]
     
