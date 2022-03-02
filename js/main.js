@@ -187,8 +187,6 @@ function addEventListenerToMinusButton(id) {
   });
 }
 
-
-
 function addEventListenerToRemoveProductButton(id) {
   $(`#cart__remove-btn-${id}`).click(function () {
     let product = cart.find((item) => item.id == id);
@@ -196,30 +194,32 @@ function addEventListenerToRemoveProductButton(id) {
   });
 }
 
-
-
 function removeAllProducts() {
   cart.forEach((product) => {
     deleteCartItem(product.id);
     product.selected = 0;
   });
-  cart.splice(0, cart.length); //cleans the array.
+  cart.splice(0, cart.length);
   updateLocalStorage("cart", cart);
 }
 
-function buyCart() {
+function emptyCart() {
   removeAllProducts();
-  toggleCartBuyButton()
-  toggleRemoveAllProductsButton()
-  toggleIsEmptyText()
+  toggleCartBuyButton();
+  toggleRemoveAllProductsButton();
+  toggleIsEmptyText();
   toggleShowNavCartBadge();
   updateNavCartCounter();
   updateTotalPriceText();
+}
+
+function buyCart() {
+  emptyCart();
   Swal.fire({
     title: 'Thanks for buying at The Store!',
     icon: 'success',
     confirmButtonText: 'Continue'
-  })
+  });
 }
 
 function toggleCartBuyButton() {
@@ -240,6 +240,11 @@ function toggleRemoveAllProductsButton() {
     $("#cart__remove-all-btn").removeClass("disabled");
   } else {
     $("#cart__remove-all-btn").addClass("disabled");
+  }
+  if (cart.length == 0) {
+    $("#cart__remove-all-btn").off("click", emptyCart);
+  } else {
+    $("#cart__remove-all-btn").on("click", emptyCart);
   }
 }
 
@@ -278,6 +283,12 @@ function addEventListenerToNavCartButton() {
   });
 }
 
+function addEventListenerToNavCartCloseButton() {
+  $("#cart__close-btn").click(function () {
+    $("#cart").slideToggle("550");
+  });
+}
+
 function toggleShowNavCartBadge() {
   if ($("#nav__cart-badge").css("opacity") == 1) {
     $("#nav__cart-badge").animate({
@@ -296,15 +307,12 @@ function toggleShowNavCartBadge() {
 
 // category selection functions
 
-updateLocalStorage("category", "all");
-updateLocalStorage("color", "all");
-
 function addEventListenerToStoreButtons() {
   $(".store__category").click(function () {
     let category = $(this).attr("id").split("-")[1];
     updateLocalStorage("category", category);
-    $(".store__category").removeClass("disabled");
-    $(`#store__category-${category}`).addClass("disabled");
+    $(".store__category").removeClass("disabled active-category");
+    $(`#store__category-${category}`).addClass("disabled active-category");
     let color = JSON.parse(localStorage.getItem("color"));
     if (category == "all") {
       if (color != "all") {
@@ -323,10 +331,9 @@ function addEventListenerToStoreButtons() {
   $(".store__color").click(function () {
     let color = $(this).attr("id").split("-")[1];
     updateLocalStorage("color", color);
-    $(".store__color").removeClass("disabled");
-    $(`#store__color-${color}`).addClass("disabled");
+    $(".store__color").removeClass("disabled active-category");
+    $(`#store__color-${color}`).addClass("disabled active-category");
     let category = JSON.parse(localStorage.getItem("category"));
-    console.log(category);
     if (color == "all") {
       if (category != "all") {
         filterByCategory(category);
@@ -410,6 +417,9 @@ class Product {
   }
 }
 
+updateLocalStorage("category", "all");
+updateLocalStorage("color", "all");
+
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 const products = [];
@@ -419,6 +429,7 @@ $(document).ready(function () {
     loadLocalStorageCart();
   }
   addEventListenerToNavCartButton();
+  addEventListenerToNavCartCloseButton();
   if (window.location.pathname == "/pages/register/" ||
     window.location.pathname == "/pages/login/" ||
     window.location.pathname == "/pages/contact/") {

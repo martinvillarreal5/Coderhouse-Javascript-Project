@@ -36,6 +36,15 @@ main {
 button:focus {
     box-shadow: none;
 }
+.btn:focus {
+    box-shadow: none;
+}
+
+.active-category{
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 
 //nav
 nav {

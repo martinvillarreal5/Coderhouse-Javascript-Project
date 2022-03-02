@@ -18,6 +18,13 @@
     transform: translateX(-50%);
     overflow-x: hidden;
 
+    #cart__close-btn{
+        background-color: transparent;
+        border: none;
+        font-size: 2rem;
+        margin-bottom: .5rem
+    }
+
     #cart__container {
         display: flex;
         flex-wrap: wrap;
@@ -59,7 +66,7 @@
 }
 
 .cart__item-name {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
 }
 
 .cart__item-qty-container {
@@ -89,7 +96,7 @@
 
 
 .cart__item-price {
-    font-size: .75rem;
+    font-size: 1rem;
     color: #585858;
 }
 

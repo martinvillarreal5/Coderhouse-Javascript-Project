@@ -48,28 +48,18 @@
         </div>
     </nav>
 
-    <aside id="cart">
-        <h2>Shopping Cart</h2>
-        <div id="cart__container" class="container-fluid">
-        </div>
-        <h3 id="cart__total-price"></h3>
-        <p id="cart__is-empty">The cart is empty</p>
-        <button type="button" id="cart__buy-btn" class="btn btn-success disabled">Checkout</button>
-        <button type="button" id="cart__remove-all-btn" class="btn btn-danger disabled">Empty Cart</button>
-    </aside>
-
     <main>
         <article id="store">
             <h1>Store</h1>
             <div id="store__categories" class="container-fluid">
-                <button type="button" id="store__category-all" class="store__category btn disabled">All</button>
+                <button type="button" id="store__category-all" class="store__category btn disabled active-category">All</button>
                 <button type="button" id="store__category-shirt" class="store__category btn">Shirts</button>
                 <button type="button" id="store__category-hoodie" class="store__category btn">Hoodies</button>
                 <button type="button" id="store__category-sweater" class="store__category btn">Sweaters</button>
             </div>
             <hr>
             <div id="store__colors" class="container-fluid">
-                <button type="button" id="store__color-all" class="store__color btn disabled">All</button>
+                <button type="button" id="store__color-all" class="store__color btn disabled active-category">All</button>
                 <button type="button" id="store__color-red" class="store__color btn">Red</button>
                 <button type="button" id="store__color-blue" class="store__color btn">Blue</button>
                 <button type="button" id="store__color-green" class="store__color btn">Green</button>
@@ -83,6 +73,21 @@
             </div>
         </article>
     </main>
+
+    <aside id="cart">
+        <div class="container-fluid d-flex flex-row justify-content-between align-items-center">
+            <h2>Shopping Cart</h2>
+            <button type="button" id="cart__close-btn">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+        <div id="cart__container" class="container-fluid">
+        </div>
+        <h3 id="cart__total-price"></h3>
+        <p id="cart__is-empty">The cart is empty</p>
+        <button type="button" id="cart__buy-btn" class="btn btn-success disabled">Checkout</button>
+        <button type="button" id="cart__remove-all-btn" class="btn btn-danger disabled">Empty Cart</button>
+    </aside>
 
     <footer>
         <p>© Copyrights. All rights reserved. Martín Villarreal</p>

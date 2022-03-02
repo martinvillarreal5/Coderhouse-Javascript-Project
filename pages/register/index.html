@@ -47,15 +47,6 @@
             </div>
         </div>
     </nav>
-    <aside id="cart">
-        <h2>Shopping Cart</h2>
-        <div id="cart__container" class="container-fluid">
-        </div>
-        <h3 id="cart__total-price"></h3>
-        <p id="cart__is-empty">The cart is empty</p>
-        <button type="button" id="cart__buy-btn" class="btn btn-success disabled">Checkout</button>
-        <button type="button" id="cart__remove-all-btn" class="btn btn-danger disabled">Empty Cart</button>
-    </aside>
     <main id="main-register">
         <article id="register-container">
             <form id="register-form">
@@ -74,9 +65,7 @@
                         <label class="form-label" for="register-form__email">Email address</label>
                         <input type="email" class="form-control" id="register-form__email" aria-describedby="emailHelp"
                             required>
-
                         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-
                     </div>
                 </div>
                 <div class="mb-3">
@@ -92,15 +81,6 @@
                         </div>
                     </div>
                 </div>
-                <!--
-                <div class="mb-3">
-                    <div class="form-outline mb-4">
-                        <label class="form-label" for="register-form__confirm_password">Repeat your password</label>
-                        <input type="password" id="register-form__pass_repeat" class="form-control" required>
-                        <p id="conpasscheck" style="color: red;"></p>
-                    </div>
-                </div>
-                -->
                 <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
                     <label class="form-check-label" for="exampleCheck1">
@@ -113,9 +93,22 @@
                 <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="../login"
                         class="fw-bold text-body"><u>Login here</u></a></p>
             </form>
-
         </article>
     </main>
+    <aside id="cart">
+        <div class="container-fluid">
+            <h2>Shopping Cart</h2>
+            <button type="button" id="cart__close-btn" class="">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+        <div id="cart__container" class="container-fluid">
+        </div>
+        <h3 id="cart__total-price"></h3>
+        <p id="cart__is-empty">The cart is empty</p>
+        <button type="button" id="cart__buy-btn" class="btn btn-success disabled">Checkout</button>
+        <button type="button" id="cart__remove-all-btn" class="btn btn-danger disabled">Empty Cart</button>
+    </aside>
     <footer>
         <p>© Copyrights. All rights reserved. Martín Villarreal</p>
     </footer>

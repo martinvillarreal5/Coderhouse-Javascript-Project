@@ -46,15 +46,6 @@
             </div>
         </div>
     </nav>
-    <aside id="cart">
-        <h2>Shopping Cart</h2>
-        <div id="cart__container" class="container-fluid">
-        </div>
-        <h3 id="cart__total-price"></h3>
-        <p id="cart__is-empty">The cart is empty</p>
-        <button type="button" id="cart__buy-btn" class="btn btn-success disabled">Checkout</button>
-        <button type="button" id="cart__remove-all-btn" class="btn btn-danger disabled">Empty Cart</button>
-    </aside>
     <main id="main-login">
         <article id="login-container">
             <form id="login-form">
@@ -81,10 +72,23 @@
             </form>
         </article>
     </main>
+    <aside id="cart">
+        <div class="container-fluid">
+            <h2>Shopping Cart</h2>
+            <button type="button" id="cart__close-btn" class="">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+        <div id="cart__container" class="container-fluid">
+        </div>
+        <h3 id="cart__total-price"></h3>
+        <p id="cart__is-empty">The cart is empty</p>
+        <button type="button" id="cart__buy-btn" class="btn btn-success disabled">Checkout</button>
+        <button type="button" id="cart__remove-all-btn" class="btn btn-danger disabled">Empty Cart</button>
+    </aside>
     <footer>
         <p>© Copyrights. All rights reserved. Martín Villarreal</p>
     </footer>
-    <script src="../../js/account/login.js"></script>
     <script src="../../js/main.js"></script>
 </body>
 
