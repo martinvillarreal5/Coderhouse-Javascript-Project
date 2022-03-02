@@ -1,11 +1,9 @@
-
-
-// Store
+// store functions
 
 function renderStoreItems() {
   products.forEach(function (product) {
     let item =
-      $(`<div class="store__item card text-center" style="width: 18rem; margin: clamp(5px, 1%, 10px); ">
+      $(`<div id="store__item-${product.id}" class="store__item card text-center" style="width: 15rem; margin: clamp(5px, 1%, 10px); ">
       <img class="card-img-top" src=${product.imageFront} alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">${product.name}</h5>
@@ -45,7 +43,7 @@ function addProductToCart(id) {
   updateTotalPriceText();
 }
 
-// Cart
+// cart functions
 
 
 function renderCartItem(product) {
@@ -75,8 +73,7 @@ function renderCartItem(product) {
       </div>
     </div>
     <button class="cart__remove-btn" id="cart__remove-btn-${product.id}"><i class="bi bi-trash"></i></button>
-  </div>`
-  );
+  </div>`);
   $("#cart__container").append(item);
   addEventListenerToQuantityInput(product.id);
   addEventListenerToPlusButton(product.id);
@@ -89,7 +86,7 @@ function increaseProduct(id) {
   product.selected++;
   updateLocalStorage("cart", cart);
   updateItemQuantity(product.id, product.selected);
-  updateItemPrice(product.id, product.price,  product.selected);
+  updateItemPrice(product.id, product.price, product.selected);
   updateTotalPriceText();
   updateNavCartCounter();
 }
@@ -101,7 +98,7 @@ function decreaseProduct(id) {
     removeProductFromCart(product);
   } else {
     updateItemQuantity(product.id, product.selected);
-    updateItemPrice(product.id, product.price,  product.selected);
+    updateItemPrice(product.id, product.price, product.selected);
     updateLocalStorage("cart", cart);
     updateTotalPriceText();
     updateNavCartCounter();
@@ -111,7 +108,7 @@ function decreaseProduct(id) {
 function removeProductFromCart(product) {
   const index = cart.indexOf(product);
   if (product.selected > 0) {
-    product.selected = 0; 
+    product.selected = 0;
   }
   if (index > -1) {
     cart.splice(index, 1); //removes the index
@@ -127,6 +124,7 @@ function removeProductFromCart(product) {
   updateLocalStorage("cart", cart);
   updateTotalPriceText();
 }
+
 function deleteCartItem(id) {
   $(`#cart__item-${id}`).slideUp(500, function () {
     $(`#cart__item-${id}`).remove();
@@ -136,6 +134,7 @@ function deleteCartItem(id) {
 function updateItemQuantity(id, quantity) {
   $(`#cart__item-quantity-${id}`).val(quantity);
 }
+
 function updateItemPrice(id, price, quantity) {
 
   $(`#cart__item-price-${id}`).text(`${quantity}x${price}$:`);
@@ -161,14 +160,14 @@ function addEventListenerToQuantityInput(id) {
     let quantity = parseInt($(`#cart__item-quantity-${id}`).val());
     if (quantity == 0) {
       removeProductFromCart(product);
-    } else if (quantity < 0 || isNaN(quantity)==true) {
+    } else if (quantity < 0 || isNaN(quantity) == true) {
       // TODO add popover saying wrong value or block input for only 0/1-99.. numbers
       updateItemQuantity(product.id, product.selected);
-      updateItemPrice(product.id, product.price,  product.selected);
+      updateItemPrice(product.id, product.price, product.selected);
     } else {
       product.selected = quantity;
       updateItemQuantity(product.id, product.selected);
-      updateItemPrice(product.id, product.price,  product.selected);
+      updateItemPrice(product.id, product.price, product.selected);
       updateNavCartCounter()
       updateLocalStorage("cart", cart);
       updateTotalPriceText();
@@ -199,7 +198,7 @@ function addEventListenerToRemoveProductButton(id) {
 
 
 
-function removeAllProducts(){
+function removeAllProducts() {
   cart.forEach((product) => {
     deleteCartItem(product.id);
     product.selected = 0;
@@ -221,7 +220,6 @@ function buyCart() {
     icon: 'success',
     confirmButtonText: 'Continue'
   })
-  
 }
 
 function toggleCartBuyButton() {
@@ -232,11 +230,11 @@ function toggleCartBuyButton() {
   }
   if (cart.length == 0) {
     $("#cart__buy-btn").off("click", buyCart);
-  }
-  else {
+  } else {
     $("#cart__buy-btn").on("click", buyCart);
   }
 }
+
 function toggleRemoveAllProductsButton() {
   if ($("#cart__remove-all-btn").hasClass("disabled")) {
     $("#cart__remove-all-btn").removeClass("disabled");
@@ -244,7 +242,8 @@ function toggleRemoveAllProductsButton() {
     $("#cart__remove-all-btn").addClass("disabled");
   }
 }
-function toggleIsEmptyText(){
+
+function toggleIsEmptyText() {
   $("#cart__is-empty").slideToggle(500);
 }
 
@@ -260,7 +259,7 @@ function loadLocalStorageCart() {
   updateTotalPriceText();
 }
 
-// Nav
+// nav functions
 
 function updateNavCartCounter() {
   let totalQuantity = 0;
@@ -281,15 +280,13 @@ function addEventListenerToNavCartButton() {
 
 function toggleShowNavCartBadge() {
   if ($("#nav__cart-badge").css("opacity") == 1) {
-    $("#nav__cart-badge").animate(
-      {
+    $("#nav__cart-badge").animate({
         opacity: 0,
       },
       500
     );
   } else {
-    $("#nav__cart-badge").animate(
-      {
+    $("#nav__cart-badge").animate({
         opacity: 1,
       },
       500
@@ -297,10 +294,102 @@ function toggleShowNavCartBadge() {
   }
 }
 
+// category selection functions
+
+updateLocalStorage("category", "all");
+updateLocalStorage("color", "all");
+
+function addEventListenerToStoreButtons() {
+  $(".store__category").click(function() {
+    let category = $(this).attr("id").split("-")[1];
+    updateLocalStorage("category", category);
+    $(".store__category").removeClass("disabled");
+    $(`#store__category-${category}`).addClass("disabled");
+    let color = JSON.parse(localStorage.getItem("color"));
+    if (category == "all") {
+      if (color != "all"){
+        filterByColor(color);
+      } else {
+        $(".store__item").show();
+      }
+    } else {
+      if (color == "all"){
+        filterByCategory(category);
+      } else {
+        filterByCategoryAndColor(category, color);
+      }
+    }
+  });
+  $(".store__color").click(function(){
+    let color = $(this).attr("id").split("-")[1];
+    updateLocalStorage("color", color);
+    $(".store__color").removeClass("disabled");
+    $(`#store__color-${color}`).addClass("disabled");
+    let category = JSON.parse(localStorage.getItem("category"));
+    console.log(category);
+    if (color == "all") {
+      if (category != "all") {
+        filterByCategory(category);
+      } else {
+        $(".store__item").show();
+      }
+    } else {
+      if (category == "all") {
+        filterByColor(color);
+      } else {
+        filterByCategoryAndColor(category, color);
+      }
+    }
+  });
+}
+function filterByColor(color) {
+  products.forEach((product) => {
+    if (product.color != color) {
+      $(`#store__item-${product.id}`).hide();
+    } else {
+      $(`#store__item-${product.id}`).show();
+    }
+  });
+}
+function filterByCategory(category) {
+  products.forEach((product) => {
+    if (product.category != category) {
+      $(`#store__item-${product.id}`).hide();
+    } else {
+      $(`#store__item-${product.id}`).show();
+    }
+  });
+}
+function filterByCategoryAndColor(category, color) {
+  products.forEach((product) => {
+    if (product.category != category || product.color != color) {
+      $(`#store__item-${product.id}`).hide();
+    } else {
+      $(`#store__item-${product.id}`).show();
+    }
+  });
+}
+
 // General
 
 function updateLocalStorage(keyName, keyValue) {
   localStorage.setItem(keyName, JSON.stringify(keyValue));
+}
+
+function pushProductsfromJson(data) {
+  data.forEach(jsonitem => {
+    products.push(
+      new Product(
+        jsonitem.id,
+        jsonitem.title,
+        jsonitem.price,
+        jsonitem.category,
+        jsonitem.color,
+        jsonitem.imageFront,
+        jsonitem.imageBack
+      )
+    );
+  });
 }
 
 // Main
@@ -328,76 +417,20 @@ $(document).ready(function () {
   }
   addEventListenerToNavCartButton();
   if (window.location.pathname == "/pages/register/" ||
-   window.location.pathname == "/pages/login/" || 
-   window.location.pathname == "/pages/contact/"){
-     // it doesnt get the products from the json and doesnt load the store items.
-  }
-  else {
-    
-    jQuery.getJSON("json/1-hoodies.json", function (data) {
-      data.forEach(function (jsonitem) {
-        products.push(
-          new Product(
-            jsonitem.id,
-            jsonitem.title,
-            jsonitem.price,
-            jsonitem.category,
-            jsonitem.color,
-            jsonitem.imageFront,
-            jsonitem.imageBack
-          )
-        );
-      });
-      renderStoreItems();
-    });
-    
-    /*
+    window.location.pathname == "/pages/login/" ||
+    window.location.pathname == "/pages/contact/") {
+    // it doesnt get the products from the json and doesnt load the store items.
+  } else {
     $.when(
-      $.getJSON("../json/1-hoodies.json"),
-      $.getJSON("../json/2-sweaters.json"),
-      $.getJSON("../json/3-shirts.json")
-    ).done(function(hoodiesData, sweatersData, shirtsData){
-      hoodiesData[0].forEach(function (jsonitem) {
-        products.push(
-          new Product(
-            jsonitem.id,
-            jsonitem.title,
-            jsonitem.price,
-            jsonitem.category,
-            jsonitem.color,
-            jsonitem.imageFront,
-            jsonitem.imageBack
-          )
-        );
-      });
-      sweatersData[0].forEach(function (jsonitem) {
-        products.push(
-          new Product(
-            jsonitem.id,
-            jsonitem.title,
-            jsonitem.price,
-            jsonitem.category,
-            jsonitem.color,
-            jsonitem.imageFront,
-            jsonitem.imageBack
-          )
-        );
-      });
-      shirtsData[0].forEach(function (jsonitem) {
-        products.push(
-          new Product(
-            jsonitem.id,
-            jsonitem.title,
-            jsonitem.price,
-            jsonitem.category,
-            jsonitem.color,
-            jsonitem.imageFront,
-            jsonitem.imageBack
-          )
-        );
-      });
+      $.getJSON("/json/1-hoodies.json"),
+      $.getJSON("/json/2-sweaters.json"),
+      $.getJSON("/json/3-shirts.json"),
+    ).done(function (hoodiesData, sweatersData, shirtsData) {
+      pushProductsfromJson(hoodiesData[0]);
+      pushProductsfromJson(sweatersData[0]);
+      pushProductsfromJson(shirtsData[0]);
       renderStoreItems();
+      addEventListenerToStoreButtons();
     });
-    */
   }
 });

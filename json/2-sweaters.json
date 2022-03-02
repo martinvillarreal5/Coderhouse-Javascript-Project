@@ -15,7 +15,7 @@
         "price": "12.00",
         "category": "sweater",
         "color": "bordeaux",
-        "imageFront": "../images/product-images/600width/sweaters/sweater-vneck-bordeaux-front.jpeg",
+        "imageFront": "/images/product-images/600width/sweaters/sweater-vneck-bordeaux-front.jpeg",
         "imageBack": "../images/product-images/600width/sweaters/sweater-vneck-bordeaux-back.jpeg"
     },
     {
@@ -24,8 +24,8 @@
         "price": "12.00",
         "category": "sweater",
         "color": "grey",
-        "imageFront": "../images/product-images/600width/sweaters/sweater-zipper-grey-front.jpeg",
-        "imageBack": "../images/product-images/600width/sweaters/sweater-zipper-grey-back.jpeg"
+        "imageFront": "/images/product-images/600width/sweaters/sweater-zipper-grey-front.jpeg",
+        "imageBack": "/images/product-images/600width/sweaters/sweater-zipper-grey-back.jpeg"
     },
     {
         "id": 8,
@@ -33,7 +33,7 @@
         "price": "12.00",
         "category": "sweater",
         "color": "red",
-        "imageFront": "../images/product-images/600width/sweaters/sweater-zipper-red-front.jpeg",
-        "imageBack": "../images/product-images/600width/sweaters/sweater-zipper-red-back.jpeg"
+        "imageFront": "/images/product-images/600width/sweaters/sweater-zipper-red-front.jpeg",
+        "imageBack": "/images/product-images/600width/sweaters/sweater-zipper-red-back.jpeg"
     }
 ]
