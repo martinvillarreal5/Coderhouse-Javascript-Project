@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/martinvillarreal5/Proyecto_JS/issues"
   },
-  "homepage": "Proyecto_JS",
+  "homepage": "https://martinvillarreal5.github.io/Proyecto_JS/",
   "devDependencies": {
     "nodemon": "^2.0.15",
     "sass": "^1.49.7"
