@@ -1,7 +1,7 @@
 @import "cart.scss";
 @import "register.scss";
 @import "login.scss";
-
+@import "store.scss";
 
 * {
     font-family: sans-serif;
@@ -92,41 +92,7 @@ nav {
         }
     }
 }
-//
-.filter-nav{
-    top: 4.725rem;
-    button {
-        font-size: 1.5rem;
-        background-color: transparent;
-        padding: 0.5rem 1rem;
-        text-align: center;
-        border: none;
-        outline: none;
-    }
-}
-//Store Elements
 
-#store {
-    padding: .75rem var(--bs-gutter-x,.75rem);
-    background-color: white;
-    text-align: center;
-
-    #store__container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .store__item {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        background-color: whitesmoke;
-        .card-img-top{
-            //width: 18.75rem;
-            height: 18.75rem;
-            object-fit: cover;
-        }
-    }
-}
 
 
 

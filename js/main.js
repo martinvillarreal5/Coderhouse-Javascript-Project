@@ -14,7 +14,6 @@ function renderStoreItems() {
     $("#store__container").append(item);
   });
   addEventListenerToAddButtons();
-  addEventLitenerToCardImage();
 }
 
 function addEventListenerToAddButtons() {
@@ -44,44 +43,6 @@ function addProductToCart(id) {
   updateTotalPriceText();
 }
 
-function addEventLitenerToCardImage() {
-  $(".card-img-top").click(function () {
-    let id = $(this).parent().attr("id").split("-")[1];
-    let product = products.find((item) => item.id == id);
-    if ($(this).attr("src") == product.imageFront) {
-      $(this).attr("src", product.imageBack);
-    } else {
-      $(this).attr("src", product.imageFront);
-    }
-  });
-}
-function renderProductModal(product) {
-  let modal = $(`<div id="product-modal-${product.id}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">${product.name}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <div class="modal-body">
-        <img src=${product.imageFront} alt="Card image cap" class="card-img-top">
-        <p>${product.description}</p>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-
-    </div>
-  </div>
-</div>`);
-  $("body").append(modal);
-  $("#product-modal-" + product.id).modal("show");
-}
 // cart functions
 
 

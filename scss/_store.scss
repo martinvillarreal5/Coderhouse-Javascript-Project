@@ -1,0 +1,23 @@
+//Store Elements
+
+#store {
+    padding: .75rem var(--bs-gutter-x,.75rem);
+    background-color: white;
+    text-align: center;
+
+    #store__container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .store__item {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        background-color: whitesmoke;
+        .card-img-top{
+            //width: 18.75rem;
+            height: 18.75rem;
+            object-fit: cover;
+        }
+    }
+}
