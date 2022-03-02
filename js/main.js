@@ -14,6 +14,7 @@ function renderStoreItems() {
     $("#store__container").append(item);
   });
   addEventListenerToAddButtons();
+  addEventLitenerToCardImage();
 }
 
 function addEventListenerToAddButtons() {
@@ -43,6 +44,44 @@ function addProductToCart(id) {
   updateTotalPriceText();
 }
 
+function addEventLitenerToCardImage() {
+  $(".card-img-top").click(function () {
+    let id = $(this).parent().attr("id").split("-")[1];
+    let product = products.find((item) => item.id == id);
+    if ($(this).attr("src") == product.imageFront) {
+      $(this).attr("src", product.imageBack);
+    } else {
+      $(this).attr("src", product.imageFront);
+    }
+  });
+}
+function renderProductModal(product) {
+  let modal = $(`<div id="product-modal-${product.id}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">${product.name}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <img src=${product.imageFront} alt="Card image cap" class="card-img-top">
+        <p>${product.description}</p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+
+    </div>
+  </div>
+</div>`);
+  $("body").append(modal);
+  $("#product-modal-" + product.id).modal("show");
+}
 // cart functions
 
 
@@ -300,27 +339,27 @@ updateLocalStorage("category", "all");
 updateLocalStorage("color", "all");
 
 function addEventListenerToStoreButtons() {
-  $(".store__category").click(function() {
+  $(".store__category").click(function () {
     let category = $(this).attr("id").split("-")[1];
     updateLocalStorage("category", category);
     $(".store__category").removeClass("disabled");
     $(`#store__category-${category}`).addClass("disabled");
     let color = JSON.parse(localStorage.getItem("color"));
     if (category == "all") {
-      if (color != "all"){
+      if (color != "all") {
         filterByColor(color);
       } else {
         $(".store__item").show();
       }
     } else {
-      if (color == "all"){
+      if (color == "all") {
         filterByCategory(category);
       } else {
         filterByCategoryAndColor(category, color);
       }
     }
   });
-  $(".store__color").click(function(){
+  $(".store__color").click(function () {
     let color = $(this).attr("id").split("-")[1];
     updateLocalStorage("color", color);
     $(".store__color").removeClass("disabled");
@@ -342,6 +381,7 @@ function addEventListenerToStoreButtons() {
     }
   });
 }
+
 function filterByColor(color) {
   products.forEach((product) => {
     if (product.color != color) {
@@ -351,6 +391,7 @@ function filterByColor(color) {
     }
   });
 }
+
 function filterByCategory(category) {
   products.forEach((product) => {
     if (product.category != category) {
@@ -360,6 +401,7 @@ function filterByCategory(category) {
     }
   });
 }
+
 function filterByCategoryAndColor(category, color) {
   products.forEach((product) => {
     if (product.category != category || product.color != color) {
