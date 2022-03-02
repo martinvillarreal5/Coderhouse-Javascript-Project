@@ -1,6 +1,5 @@
 {
   "name": "proyecto_js",
-  "homepage": "Proyecto_js",
   "version": "1.0.0",
   "description": "",
   "main": "index.html",
@@ -21,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/martinvillarreal5/Proyecto_JS/issues"
   },
-  "homepage": "https://github.com/martinvillarreal5/Proyecto_JS#readme",
+  "homepage": "Proyecto_JS",
   "devDependencies": {
     "nodemon": "^2.0.15",
     "sass": "^1.49.7"
