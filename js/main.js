@@ -97,7 +97,7 @@ function increaseProduct(id){
   let price = product.price;
   updateLocalStorage("cart", cart);
   updateItemQuantity(id, quantity);
-  updateItemPrice(id,price, quantity);
+  updateItemPrice(id, price, quantity);
   updateTotalPriceText();
   updateNavCartCounter();
 }
@@ -105,11 +105,13 @@ function increaseProduct(id){
 function decreaseProduct(id) {
   let product = cart.find((item) => item.id == id);
   product.selected--;
-  if (product.selected == 0) {
+  let quantity = product.selected;
+  let price = product.price;
+  if (quantity == 0) {
     removeProductFromCart(product);
   } else {
-    updateItemQuantity(id, product.selected);
-    updateItemPrice(id, product.price, product.selected);
+    updateItemQuantity(id, quantity);
+    updateItemPrice(id, price, quantity);
     updateLocalStorage("cart", cart);
     updateTotalPriceText();
     updateNavCartCounter();
