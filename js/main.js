@@ -147,7 +147,6 @@ function updateItemQuantity(id, quantity) {
 }
 
 function updateItemPrice(id, price, quantity) {
-
   $(`#cart__item-price-${id}`).text(`${quantity}x${price}$:`);
   $(`#cart__item-total-price-${id}`).text(`${price * quantity}$`);
 }
@@ -329,26 +328,26 @@ function addEventListenerToStoreButtons() {
     $(`#store__${parameterType}-${parameter}`).addClass("disabled active-category");
     let category = JSON.parse(localStorage.getItem("category"));
     let color = JSON.parse(localStorage.getItem("color"));
-    filterProducts(category, color);
+    filterStoreItems(category, color);
   });
 }
 
-function filterProducts(category, color) {
+function filterStoreItems(category, color) {
   products.forEach((product) => {
     if ((category == product.category || category == "all" ) && (product.color == color || color == "all")) {
-      showProduct(product.id);
+      showItem(product.id);
     } else {
-      hideProduct(product.id);
+      hideItem(product.id);
     }
   });
 }
 
 
-function showProduct(id) {
+function showItem(id) {
   $(`#store__item-${id}`).show();
 }
 
-function hideProduct(id) {
+function hideItem(id) {
   $(`#store__item-${id}`).hide();
 }
 
