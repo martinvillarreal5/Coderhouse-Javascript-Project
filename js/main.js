@@ -130,7 +130,7 @@ function removeProductFromCart(product) {
     toggleIsEmptyText();
     toggleShowNavCartBadge();
   }
-  deleteCartItem(id);
+  deleteCartItem(product.id);
   updateNavCartCounter();
   updateLocalStorage("cart", cart);
   updateTotalPriceText();
