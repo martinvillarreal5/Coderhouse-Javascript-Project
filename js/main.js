@@ -2,13 +2,17 @@
 
 function renderStoreItems() {
   products.forEach(function (product) {
+    let id = product.id;
+    let imageFront = product.imageFront;
+    let name = product.name;
+    let price = product.price;
     let item =
-      $(`<div id="store__item-${product.id}" class="store__item card text-center" style="width: 15rem; margin: clamp(5px, 1%, 10px); ">
-      <img class="card-img-top" src=${product.imageFront} alt="Card image cap">
+      $(`<div id="store__item-${id}" class="store__item card text-center" style="width: 15rem; margin: clamp(5px, 1%, 10px); ">
+      <img class="card-img-top" src=${imageFront} alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">${product.name}</h5>
-        <h5 class="card-title">${product.price}$</h5>
-        <button id="store__add-btn-${product.id}" class="store__add-btn btn btn-primary">Agregar al carrito</button>
+        <h5 class="card-title">${name}</h5>
+        <h5 class="card-title">${price}$</h5>
+        <button class="store__add-btn btn btn-primary">Agregar al carrito</button>
       </div>
       </div>`);
     $("#store__container").append(item);
@@ -18,7 +22,7 @@ function renderStoreItems() {
 
 function addEventListenerToAddButtons() {
   $(".store__add-btn").click(function () {
-    let id = $(this).attr("id").split("-")[2];
+    let id = $(this).parent().parent().attr("id").split("-")[1];
     if (cart.find((item) => item.id == id)) {
       increaseProduct(id);
     } else {
@@ -47,46 +51,53 @@ function addProductToCart(id) {
 
 
 function renderCartItem(product) {
+  let id = product.id;
+  let imageFront = product.imageFront;
+  let name = product.name;
+  let price = product.price;
+  let quantity = product.selected;
   let item = $(`
-  <div id="cart__item-${product.id}" class="cart__item">
-    <img class="cart__item-img " src=${product.imageFront} alt="aqui va una imagen">
+  <div id="cart__item-${id}" class="cart__item">
+    <img class="cart__item-img " src=${imageFront} alt="aqui va una imagen">
     <div class="cart__item-body container-fluid">
       <div class="row align-items-center h-100">
         <div class="col-7 col-sm-8">
           <div class="row align-items-center">
             <div class="col-12 col-sm-6">
-              <label class="cart__item-name">${product.name} </label>
+              <label class="cart__item-name">${name} </label>
             </div>
             <div class="col-12 col-sm-6">
               <div class="cart__item-qty-container">
-                  <button class="cart__minus-btn cart__qty-btn" id="cart__minus-btn-${ product.id}"><i class="bi bi-dash-circle"></i></button>
-                  <input class="cart__item-quantity" id="cart__item-quantity-${product.id}" type="number" inputmode="numeric" pattern="[0-9]*" value="${product.selected}">
-                  <button class="cart__qty-btn cart__plus-btn" id="cart__plus-btn-${product.id}"><i class="bi bi-plus-circle"></i></button>
+                  <button class="cart__minus-btn cart__qty-btn" id="cart__minus-btn-${id}"><i class="bi bi-dash-circle"></i></button>
+                  <input class="cart__item-quantity" id="cart__item-quantity-${id}" type="number" inputmode="numeric" pattern="[0-9]*" value="${product.selected}">
+                  <button class="cart__qty-btn cart__plus-btn" id="cart__plus-btn-${id}"><i class="bi bi-plus-circle"></i></button>
               </div>
             </div>
           </div>
         </div>
         <div class="col-5 col-sm-4 d-flex flex-column">
-          <label class="cart__item-price" id="cart__item-price-${product.id}">${product.selected}x${product.price}$:</label>
-          <label class="cart__item-total-price" id="cart__item-total-price-${product.id}">${product.price * product.selected}$</label>
+          <label class="cart__item-price" id="cart__item-price-${id}">${quantity}x${price}$:</label>
+          <label class="cart__item-total-price" id="cart__item-total-price-${id}">${price * quantity}$</label>
         </div>
       </div>
     </div>
-    <button class="cart__remove-btn" id="cart__remove-btn-${product.id}"><i class="bi bi-trash"></i></button>
+    <button class="cart__remove-btn" id="cart__remove-btn-${id}"><i class="bi bi-trash"></i></button>
   </div>`);
   $("#cart__container").append(item);
-  addEventListenerToQuantityInput(product.id);
-  addEventListenerToPlusButton(product.id);
-  addEventListenerToMinusButton(product.id);
-  addEventListenerToRemoveProductButton(product.id);
+  addEventListenerToQuantityInput(id);
+  addEventListenerToPlusButton(id);
+  addEventListenerToMinusButton(id);
+  addEventListenerToRemoveProductButton(id);
 }
 
-function increaseProduct(id) {
+function increaseProduct(id){
   let product = cart.find((item) => item.id == id);
   product.selected++;
+  let quantity = product.selected;
+  let price = product.price;
   updateLocalStorage("cart", cart);
-  updateItemQuantity(product.id, product.selected);
-  updateItemPrice(product.id, product.price, product.selected);
+  updateItemQuantity(id, quantity);
+  updateItemPrice(id,price, quantity);
   updateTotalPriceText();
   updateNavCartCounter();
 }
@@ -97,8 +108,8 @@ function decreaseProduct(id) {
   if (product.selected == 0) {
     removeProductFromCart(product);
   } else {
-    updateItemQuantity(product.id, product.selected);
-    updateItemPrice(product.id, product.price, product.selected);
+    updateItemQuantity(id, product.selected);
+    updateItemPrice(id, product.price, product.selected);
     updateLocalStorage("cart", cart);
     updateTotalPriceText();
     updateNavCartCounter();
@@ -119,7 +130,7 @@ function removeProductFromCart(product) {
     toggleIsEmptyText();
     toggleShowNavCartBadge();
   }
-  deleteCartItem(product.id);
+  deleteCartItem(id);
   updateNavCartCounter();
   updateLocalStorage("cart", cart);
   updateTotalPriceText();
@@ -157,17 +168,19 @@ function updateTotalPriceText() {
 function addEventListenerToQuantityInput(id) {
   $(`#cart__item-quantity-${id}`).change(function () {
     let product = cart.find((item) => item.id == id);
-    let quantity = parseInt($(`#cart__item-quantity-${id}`).val());
-    if (quantity == 0) {
+    let quantity = product.selected;
+    let price = product.price;
+    let inputValue = parseInt($(`#cart__item-quantity-${id}`).val());
+    if (inputValue == 0) {
       removeProductFromCart(product);
-    } else if (quantity < 0 || isNaN(quantity) == true) {
+    } else if (inputValue < 0 || isNaN(inputValue) == true) {
       // TODO add popover saying wrong value or block input for only 0/1-99.. numbers
-      updateItemQuantity(product.id, product.selected);
-      updateItemPrice(product.id, product.price, product.selected);
+      updateItemQuantity(id, quantity);
+      updateItemPrice(id, price, quantity);
     } else {
-      product.selected = quantity;
-      updateItemQuantity(product.id, product.selected);
-      updateItemPrice(product.id, product.price, product.selected);
+      quantity = inputValue;
+      updateItemQuantity(id, quantity);
+      updateItemPrice(id, price, quantity);
       updateNavCartCounter()
       updateLocalStorage("cart", cart);
       updateTotalPriceText();
@@ -308,76 +321,35 @@ function toggleShowNavCartBadge() {
 // category selection functions
 
 function addEventListenerToStoreButtons() {
-  $(".store__category").click(function () {
-    let category = $(this).attr("id").split("-")[1];
-    updateLocalStorage("category", category);
-    $(".store__category").removeClass("disabled active-category");
-    $(`#store__category-${category}`).addClass("disabled active-category");
-    let color = JSON.parse(localStorage.getItem("color"));
-    if (category == "all") {
-      if (color != "all") {
-        filterByColor(color);
-      } else {
-        $(".store__item").show();
-      }
-    } else {
-      if (color == "all") {
-        filterByCategory(category);
-      } else {
-        filterByCategoryAndColor(category, color);
-      }
-    }
-  });
-  $(".store__color").click(function () {
-    let color = $(this).attr("id").split("-")[1];
-    updateLocalStorage("color", color);
-    $(".store__color").removeClass("disabled active-category");
-    $(`#store__color-${color}`).addClass("disabled active-category");
+  $(".store__category, .store__color").click(function () {
+    let parameterType = $(this).attr("id").split("-")[0].split("__")[1]; //obtengo el tipo de parametro ("color" or "category")
+    let parameter = $(this).attr("id").split("-")[1]; //obtengo el valor del parametro, por ejemplo "red" o "shirt"
+    updateLocalStorage(`${parameterType}`, parameter);
+    $(`.store__${parameterType}`).removeClass("disabled active-category");
+    $(`#store__${parameterType}-${parameter}`).addClass("disabled active-category");
     let category = JSON.parse(localStorage.getItem("category"));
-    if (color == "all") {
-      if (category != "all") {
-        filterByCategory(category);
-      } else {
-        $(".store__item").show();
-      }
+    let color = JSON.parse(localStorage.getItem("color"));
+    filterProducts(category, color);
+  });
+}
+
+function filterProducts(category, color) {
+  products.forEach((product) => {
+    if ((category == product.category || category == "all" ) && (product.color == color || color == "all")) {
+      showProduct(product.id);
     } else {
-      if (category == "all") {
-        filterByColor(color);
-      } else {
-        filterByCategoryAndColor(category, color);
-      }
+      hideProduct(product.id);
     }
   });
 }
 
-function filterByColor(color) {
-  products.forEach((product) => {
-    if (product.color != color) {
-      $(`#store__item-${product.id}`).hide();
-    } else {
-      $(`#store__item-${product.id}`).show();
-    }
-  });
+
+function showProduct(id) {
+  $(`#store__item-${id}`).show();
 }
 
-function filterByCategory(category) {
-  products.forEach((product) => {
-    if (product.category != category) {
-      $(`#store__item-${product.id}`).hide();
-    } else {
-      $(`#store__item-${product.id}`).show();
-    }
-  });
-}
-
-function filterByCategoryAndColor(category, color) {
-  products.forEach((product) => {
-    if (product.category != category || product.color != color) {
-      $(`#store__item-${product.id}`).hide();
-    } else {
-      $(`#store__item-${product.id}`).show();
-    }
-  });
+function hideProduct(id) {
+  $(`#store__item-${id}`).hide();
 }
 
 // General
@@ -433,7 +405,7 @@ $(document).ready(function () {
   if (window.location.pathname == "/pages/register/" ||
     window.location.pathname == "/pages/login/" ||
     window.location.pathname == "/pages/contact/") {
-    // it doesnt get the products from the json and doesnt load the store items.
+    // it doesnt get the products from the json and it doesnt load the store items.
   } else {
     $.when(
       $.getJSON("/json/1-hoodies.json"),
